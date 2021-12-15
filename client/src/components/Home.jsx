@@ -1,28 +1,26 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDogs, clearDogs } from "../redux/actions/getDogsAction";
+import { getTemperaments } from '../redux/actions/getTemperamentsAction';
 import { Cards } from './Cards';
 import Filter from './Filter';
 
 export function Home() {
 	const dispatch = useDispatch();
 	const state = useSelector(state => state.getDogs);
-	const filterState = useSelector(state => state.filterDogs);
 
 	useEffect(() => {
 		dispatch(getDogs());
-
-		//ver si cleanup hace falta
-		// return () =>{
-		// 	dispatch(clearDogs());
-		// }
-	}, [filterState]);
+		dispatch(getTemperaments());
+	}, []);
 	
+	
+
 	const showData = () =>{
 		if (state.loading) {
 			return <span>Loading...</span>
 		}
-		else if(state.dogs.length>0 || filterState.filteredDogs.length>0) {
+		else if(state.dogs.length>0 || state.filteredDogs.length>0) {
 			return <Cards />
 		}
 		else {

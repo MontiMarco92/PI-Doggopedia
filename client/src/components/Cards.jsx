@@ -4,14 +4,11 @@ import { Link } from "react-router-dom";
 
 export function Cards () {
 
-    const dogs = useSelector((state) => state.getDogs.dogs);
-    const filteredDogs = useSelector(state => state.filterDogs.filteredDogs);
-    console.log(filteredDogs);
+    const state = useSelector(state => state.getDogs);
+    const {filteredDogs} = state;
     
-    const renderObject = filteredDogs.length>0 ? filteredDogs : dogs;
 
-    console.log(renderObject);
-    const renderList = renderObject.map(e =>{
+    const renderList = filteredDogs.map(e =>{
         const {id, img, name, temperament, weight} = e;
         return (
             <div className="card" key = {id}>
