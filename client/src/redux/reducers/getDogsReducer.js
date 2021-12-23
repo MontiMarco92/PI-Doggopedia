@@ -32,6 +32,7 @@ const getDogsReducer = (state = initialState, action) => {
 				dogs: action.payload,
 				filteredDogs: action.payload,
 			};
+
 		case GET_DOGS_ERROR:
 			return {
 				...state,
@@ -40,7 +41,6 @@ const getDogsReducer = (state = initialState, action) => {
 			};
 		case FILTER_BY_TEMP:
 			const temp = action.payload;
-			console.log(temp);
 			return {
 				...state,
 				filteredDogs:
@@ -68,22 +68,48 @@ const getDogsReducer = (state = initialState, action) => {
 			};
 		case SORT_BY:
 			const sort = action.payload;
+
 			return {
 				...state,
 				filteredDogs:
-					sort === 'random' 
-						?
-						: sort === "A-Z"
-						? state.filteredDogs.sort((a, b) => {
-								return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-						  })
+					sort === "A-Z"
+						? state.filteredDogs.sort((a, b) => (a.name > b.name ? 1 : -1))
 						: sort === "Z-A"
-						? state.filteredDogs
-								.sort((a, b) => {
-									return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-								})
-								.reverse()
-						: "goli",
+						? state.filteredDogs.sort((a, b) => (a.name > b.name ? -1 : 1))
+						: sort === "wt-+"
+						? state.filteredDogs.sort((a, b) => {
+								let avgA =
+									a.weight.length > 2
+										? a.weight
+												.split(" - ")
+												.reduce((x, z) => Number(x) + Number(z)) / 2
+										: Number(a.weight);
+								let avgB =
+									b.weight.length > 2
+										? b.weight
+												.split(" - ")
+												.reduce((x, z) => Number(x) + Number(z)) / 2
+										: Number(b.weight);
+
+								return avgA - avgB;
+						  })
+						: state.filteredDogs.sort((a, b) => {
+								let avgA =
+									a.weight.length > 2
+										? a.weight
+												.split(" - ")
+												.reduce((x, z) => Number(x) + Number(z)) / 2
+										: Number(a.weight);
+								let avgB =
+									b.weight.length > 2
+										? b.weight
+												.split(" - ")
+												.reduce((x, z) => Number(x) + Number(z)) / 2
+										: Number(b.weight);
+
+								return avgB - avgA;
+						  }),
+				// ? state.filteredDogs.sort((a, b)=> {return a.})
 			};
 
 		case RESET_FILTERS:

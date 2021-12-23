@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { filterByExistence, filterByTemp, resetFilters, sortBy } from '../redux/actions/getDogsAction';
+import { FilterWrapper, FilterDiv, Title, SubTitle, Select, Label, ResetButton } from './styles/Filter.styled';
 
 const Filter = () => {
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Filter = () => {
     const [inputs, setInputs] = useState({
         selectTemp: 'all',
         radio: 'all',
-        selectSort: 'random'
+        selectSort: 'A-Z'
     })
   
 
@@ -55,7 +56,7 @@ const Filter = () => {
         setInputs({ 
             selectTemp: 'all',
             radio: 'all',
-            selectSort: 'random'
+            selectSort: 'A-Z'
         })
     }
     
@@ -67,10 +68,10 @@ const Filter = () => {
             return <span>Loading...</span>
         }else if(temperaments.length>0){
             return (
-                <select onChange={tempChangeHandler} value={inputs.selectTemp}>
+                <Select onChange={tempChangeHandler} value={inputs.selectTemp}>
                     <option value='all'>All</option>
                     {temperaments.map(e => <option key={e.id} value={e.name}>{e.name}</option>)}
-                </select> 
+                </Select> 
             )
         }else if(errorMsg !== ''){return <span>{errorMsg}</span>}
     }
@@ -78,25 +79,41 @@ const Filter = () => {
 
 
     return (
-        <>
-            <h3>Filter by</h3>
-            {showDataTempMenu()}
+        <FilterWrapper >
+            <Title>Filter by:</Title>
+
+            <FilterDiv>
+                <SubTitle>Temperament</SubTitle>
+                {showDataTempMenu()}
+            </FilterDiv>
+
+            <FilterDiv>
+                <SubTitle>Existence:</SubTitle>
+                    <Label>
+                        <input type='radio' id='all' name='breeds' value='all' checked={inputs.radio === 'all'} onChange={radioChangeHandler}/>
+                        <span>All</span>
+                    </Label>
+                    <Label>
+                        <input type='radio' id='existing' name='breeds' value='existing' checked={inputs.radio === 'existing'} onChange={radioChangeHandler}/>
+                        <span>Existing</span>
+                    </Label>
+                    <Label>
+                        <input type='radio' id='created' name='breeds' value='created' checked={inputs.radio === 'created'} onChange={radioChangeHandler}/>
+                        <span>Created by User</span>
+                    </Label>
+            </FilterDiv>
             
-            <label>All<input type='radio' id='all' name='breeds' value='all' checked={inputs.radio === 'all'} onChange={radioChangeHandler}/></label>
-            <label>Existing<input type='radio' id='existing' name='breeds' value='existing' checked={inputs.radio === 'existing'} onChange={radioChangeHandler}/></label>
-            <label>Created by User<input type='radio' id='created' name='breeds' value='created' checked={inputs.radio === 'created'} onChange={radioChangeHandler}/></label>
-
-            <h3>Sort by</h3>
-            <select onChange={sortChangeHandler} value={inputs.selectSort}>
-                <option value='random'>Random</option>
-                <option value='A-Z'>A-Z</option>
-                <option value='Z-A'>Z-A</option>
-                <option value='wt+-'>Weight (+/-)</option>
-                <option value='wt-+'>Weight (-/+)</option>
-            </select>
-
-            <button name='resetFilters' onClick={resetFilter} >Reset filters</button>
-        </>
+            <Title>Sort by:</Title>
+            <FilterDiv>
+                <Select onChange={sortChangeHandler} value={inputs.selectSort}>
+                    <option value='A-Z'>A-Z</option>
+                    <option value='Z-A'>Z-A</option>
+                    <option value='wt+-'>Weight (+/-)</option>
+                    <option value='wt-+'>Weight (-/+)</option>
+                </Select>
+                <ResetButton name='resetFilters' onClick={resetFilter} >Reset filters</ResetButton>
+            </FilterDiv>
+        </FilterWrapper>
     )
 }
 

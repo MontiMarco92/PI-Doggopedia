@@ -1,47 +1,49 @@
 import React from "react";
+import { Nav, NavTitle, NavIcon, NavForm, NavInput, NavButton, CreateLink } from './styles/Navbar.styled';
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { getDogs } from "../redux/actions/getDogsAction";
 
 export function Navbar() {
 	const [createLink, setCreateLink] = useState(true);
+	const [searchStr, setSearchStr] = useState('');
 	const location = useLocation();
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (window.location.pathname === "/createBreed") {
+		if (window.location.pathname === "/home/createBreed") {
 			setCreateLink(false);
 		}
 	}, [location]);
 
-	const onSearch = () =>{
-		dispatch(getDogs(document.getElementById('searchDog').value))
-		document.getElementById('searchBar').reset();
+	const onSearch = (e) =>{
+		e.preventDefault();
+		
+		dispatch(getDogs(searchStr))
+		setSearchStr('');
+	//solucionar redireccionamiento de pagina cuando se hace la busqueda desde ruta 'createBreed'	
 	}
 
 	const backToMain = () =>{
-		dispatch(getDogs());
+		setCreateLink(true);
 	}
 	return (
 		<>
-			<nav>
-				<Link to="/home" onClick={backToMain}>
-					<h1>Doggopedia</h1>
-				</Link>
-				<form id='searchBar' onSubmit={e => {
-					e.preventDefault();
-					onSearch()}}>
-					<input type = 'search' name='searchDog' id='searchDog' required/>
-					<button type = 'submit'>Search</button>
-				</form>
+			<Nav>
+				<NavTitle to="/home" onClick={backToMain}>
+					<NavIcon />
+					Doggopedia
+				</NavTitle>
+				<NavForm id='searchBar' onSubmit={onSearch}>
+					<NavInput type = 'search' name='searchDog' id='searchDog' value={searchStr} onChange={(e)=>{setSearchStr(e.target.value)}} required/>
+					<NavButton type = 'submit' >Search</NavButton>
+				</NavForm>
 				
-				{createLink ? <Link to="/createBreed">Create Breed</Link> : null}
-			</nav>
-			<div>
-				<Outlet />
-			</div>
+				{createLink ? <CreateLink to="createBreed">Create Breed</CreateLink> : null}
+			</Nav>
+			<Outlet />
 		</>
 	);
 }
