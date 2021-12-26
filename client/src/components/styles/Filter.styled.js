@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const FilterWrapper = styled.div`
-	width: 20%;
-	height: 100%;
+	width: 30%;
+	display: flex;
+	flex-direction: column;
 	background-color: #f9f7f7;
-	position: fixed;
-	left: 0;
+
 	border-right: 4px solid #112d4e;
 `;
 

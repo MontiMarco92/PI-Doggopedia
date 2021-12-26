@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getDogDetail } from '../redux/actions/getDetailAction';
+import { DetailWrapper, Card, ImgContent, Img, Content, LoadingMsg, ErrorMsg } from "./styles/DetailCard.styled";
 
 export function DetailCard (){
     const params = useParams();
@@ -14,30 +15,35 @@ export function DetailCard (){
     }, []);
 
     const showData = () =>{
-		if(state.loading){ return <span>Loading...</span>}
+		if(state.loading){ return <LoadingMsg>Loading...</LoadingMsg>}
         
         else if(state.dogDetail !== {}) {
 			return (
-                <div className="card" key = {id}>
-                <div className='card-body'>
-                    <img src ={img} alt='Dog'/>
-                    <h2>{name}</h2>
-                    <h5>Temperaments: {temperament}</h5>
-                    <h4>Weight: {weight} Kg</h4>
-                    <h4>Height: {height} cm</h4>
-                    <h4>Lifespan: {lifeSpan}</h4> 
-                </div>
-                </div>
+                <Card>
+                    <ImgContent>
+                        <Img src ={img} alt='Dog'/>
+                    </ImgContent>
+                    <Content>
+                        <h2>{name}</h2>
+                        <div>
+                            <h4>Temperaments:</h4>
+                            <p>{temperament}</p>
+                        </div>
+                        <h4>Weight: {weight} Kg</h4>
+                        <h4>Height: {height} cm</h4>
+                        <h4>Lifespan: {lifeSpan}</h4> 
+                    </Content>
+                </Card>
             )   
 		}
 		else  {
-			return <span>{state.errorMsg}</span>
+			return <ErrorMsg>{state.errorMsg}</ErrorMsg>
 		}
 	}
     return (
-        <div>
+        <DetailWrapper>
             {showData()}
-        </div>
+        </DetailWrapper>
     )
         
     

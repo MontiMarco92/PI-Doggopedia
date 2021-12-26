@@ -6,9 +6,9 @@ export const Nav = styled.nav`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 10px 40px;
+
+	padding: 30px 40px;
 	background-color: #f9f7f7;
-	height: 100px;
 `;
 
 export const NavTitle = styled(Link)`
@@ -79,6 +79,6 @@ export const CreateLink = styled(Link)`
 	transition: all 0.25s;
 
 	&:hover {
-		letter-spacing: 8px;
+		letter-spacing: 5px;
 	}
 `;

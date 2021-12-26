@@ -5,7 +5,8 @@ import { getTemperaments } from '../redux/actions/getTemperamentsAction';
 import { Cards } from './Cards';
 import Filter from './Filter';
 import { Pagination } from "./Pagination";
-import { HomeWrapper, Main } from "./styles/Home.styled";
+import { CardsWrapper } from "./styles/Card.styled";
+import { ErrorMsg, HomeWrapper, LoadingMsg, Main } from "./styles/Home.styled";
 
 export const dogsPerPage = 8;
 
@@ -28,19 +29,24 @@ export function Home() {
 	
 	const changePage = (pageNumber) =>{
 		if(pageNumber === '<') {return currentPage > 1 ? setCurrentPage(currentPage-1) : null}
+		else if(pageNumber === 'start') {setCurrentPage(1)}
+		else if(pageNumber === 'end') {setCurrentPage(totalPages)}
 		else if(pageNumber === '>'){return currentPage < totalPages ? setCurrentPage(currentPage+1) : null}
 		else {setCurrentPage(pageNumber)}
 	}
 
 	const showData = () =>{
 		if (state.loading) {
-			return <span>Loading...</span>
+			return <LoadingMsg>Loading...</LoadingMsg>
 		}
 		else if(state.filteredDogs.length>0) {
-			return <Cards currentDogs={currentDogs}/>
-		}
+			return (
+				<CardsWrapper>
+					<Cards currentDogs={currentDogs}/>
+				</CardsWrapper>
+			)}
 		else {
-			return <span>{state.errorMsg}</span>
+			return <ErrorMsg>{state.errorMsg}</ErrorMsg>
 		}
 	}
 	
@@ -51,7 +57,7 @@ export function Home() {
 				<Filter/>
 				<Main>
 					{showData()}
-					<Pagination changePage={changePage} totalPages={totalPages}/>
+					<Pagination changePage={changePage} totalPages={totalPages} currentPage={currentPage}/>
 				</Main>
 			</HomeWrapper>
 		</>

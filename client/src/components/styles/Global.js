@@ -10,11 +10,19 @@ const GlobalStyles = createGlobalStyle`
         font-family: 'Andika New Basic', sans-serif;
     }
 
+    html{
+        height: 100%;
+    }
     body{
         background: #F9F7F7;
-        max-width: 100%;
-        font-size: 1.15rem;
-        /* overflow-x: hidden; */
+        font-size: 1rem;
+        overflow: auto;
+    }
+    #root, body{
+        min-height: 100vh;
+        display:flex;
+        flex-direction: column;
+        
     }
 `;
 

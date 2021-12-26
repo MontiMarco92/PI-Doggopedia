@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Card, Img } from "./styles/Card.styled";
+import { Card, CardLink, Content, Img, ImgContent } from "./styles/Card.styled";
 
 export function Cards (x) {
     const {currentDogs} = x
@@ -12,20 +12,25 @@ export function Cards (x) {
     const renderList = currentDogs.map(e =>{
         const {id, img, name, temperament, weight} = e;
         return (
-            <div className="card" key = {id}>
+            <Card key = {id}>
                 
-                <Card to={`dog/${id}`} >
-                    <Img src ={img} alt='Dog'/>
-                    <div>
+                <CardLink to={`dog/${id}`} >
+                    <ImgContent>
+                        <Img src ={img} alt='Dog'/>
+                    </ImgContent>
+                    <Content>
                         <h2>{name}</h2>
-                        <h5>Temperaments: {temperament}</h5>
+                        <div>
+                            <h5>Temperaments:</h5>
+                            <p>{temperament}</p>
+                        </div>
                         <h4>Weight: {weight} Kg</h4> 
-                    </div>
+                    </Content>
                     
                     
-                </Card>
+                </CardLink>
                 
-            </div>
+            </Card>
         )
     })
     return <>{renderList}</>

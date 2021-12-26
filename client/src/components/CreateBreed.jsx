@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { getTemperaments } from '../redux/actions/getTemperamentsAction';
+import { Form, FormWrapper } from "./styles/CreateBreed.styled";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -108,10 +109,10 @@ export function CreateBreed (){
     }
 
     return(
-        <>
+        <FormWrapper>
             <h1>Create your own breed</h1>
 
-            <form onSubmit={onSubmitHandler}>
+            <Form onSubmit={onSubmitHandler}>
                 <label htmlFor='name'>Name:</label>
                 <input type="text" id='name' placeholder="Enter a name" required name='name' value={inputs.name} onChange={onChangeHandler} />
                 {!errors.name ? null : <span>{errors.name}</span>}
@@ -143,8 +144,8 @@ export function CreateBreed (){
                 </div>
                 
                 <input type='submit' value='Create!'/>
-            </form>
+            </Form>
 
-        </>
+        </FormWrapper>
     )
 }
