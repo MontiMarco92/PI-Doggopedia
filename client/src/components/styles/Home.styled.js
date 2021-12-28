@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const HomeWrapper = styled.div`
-	/* width: 100%; */
-
 	display: flex;
 `;
 
@@ -18,11 +16,11 @@ export const Main = styled.div`
 export const LoadingMsg = styled.span`
 	font-size: 1.6rem;
 	font-weight: 500;
-	color: #112d4e;
+	color: var(--text);
 `;
 
 export const ErrorMsg = styled.span`
 	font-size: 1.6rem;
 	font-weight: 500;
-	color: #c50000;
+	color: var(--errorMsg);
 `;

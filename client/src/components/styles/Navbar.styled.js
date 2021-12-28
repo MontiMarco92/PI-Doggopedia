@@ -6,17 +6,17 @@ export const Nav = styled.nav`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-
+	border-bottom: 2px solid var(--text);
 	padding: 30px 40px;
-	background-color: #f9f7f7;
+	background-color: var(--nav);
 `;
 
 export const NavTitle = styled(Link)`
-	color: #112d4e;
+	color: var(--white);
 	justify-self: flex-start;
 	cursor: pointer;
 	text-decoration: none;
-	font-size: 2rem;
+	font-size: 2.2rem;
 	display: flex;
 	align-items: center;
 `;
@@ -39,14 +39,15 @@ export const NavInput = styled.input`
 	width: 100%;
 	height: 35px;
 	border-radius: 5px;
-	border: 2px solid #112D4E;
+	border: 2px solid var(--text);
 	padding: 5px;
+	outline: none;
 	font-size: 1rem;
 `;
 
 export const NavButton = styled.button`
-	background-color: #112d4e;
-	color: #fff;
+	background-color: var(--text);
+	color: var(--white);
 	border: 0;
 	border-radius: 5px;
 	height: 35px;
@@ -59,9 +60,9 @@ export const NavButton = styled.button`
 
 	&:hover {
 		cursor: pointer;
-		border: 1px solid #112d4e;
-		background-color: #fff;
-		color: #112d4e;
+		border: 1px solid var(--text);
+		background-color: var(--white);
+		color: var(--text);
 	}
 `;
 
@@ -70,12 +71,12 @@ export const CreateLink = styled(Link)`
 	display: flex;
 	justify-content: center;
 	font-size: 1.3rem;
-	color: #112d4e;
-	border-top: 1px solid #3f72af;
-	border-bottom: 1px solid #3f72af;
+	color: var(--white);
+	border-top: 1px solid var(--white);
+	border-bottom: 1px solid var(--white);
 	letter-spacing: 1px;
 	padding: 5px;
-	width: 15%;
+	width: 12%;
 	transition: all 0.25s;
 
 	&:hover {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { getTemperaments } from '../redux/actions/getTemperamentsAction';
-import { Form, FormWrapper } from "./styles/CreateBreed.styled";
+import { Form, FormWrapper, Container, Label, Input, Info, Button, ButtonDiv, ErrorMsg, Select, Dropdown, SelectedItems, TempBtn, TempSection } from "./styles/CreateBreed.styled";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -20,7 +20,6 @@ export function CreateBreed (){
         temperamentName: []
     })
     const [errors, setErrors] = useState('')
-
 
     useEffect(()=>{
         if(temperaments.length === 0){
@@ -110,42 +109,59 @@ export function CreateBreed (){
 
     return(
         <FormWrapper>
-            <h1>Create your own breed</h1>
-
-            <Form onSubmit={onSubmitHandler}>
-                <label htmlFor='name'>Name:</label>
-                <input type="text" id='name' placeholder="Enter a name" required name='name' value={inputs.name} onChange={onChangeHandler} />
-                {!errors.name ? null : <span>{errors.name}</span>}
-                
-                <label htmlFor='img'>Image (optional):</label>
-                <input type="text" id='img' placeholder="Enter a valid URL" name='img' value={inputs.img} onChange={onChangeHandler}/>
-                {!errors.img ? null : <span>{errors.img}</span>}
-
-                <label htmlFor='height'>Height:</label>
-                <input type="text" id='height' placeholder="Enter height (min - max)"  required name='height' value={inputs.height} onChange={onChangeHandler}/> Cm
-                {!errors.height ? null : <span>{errors.height}</span>}
-
-                <label htmlFor='weight'>Weight:</label>
-                <input type="text" id='weight' placeholder="Enter weight (min - max)" required name='weight' value={inputs.weight} onChange={onChangeHandler}/> Kg
-                {!errors.weight ? null : <span>{errors.weight}</span>}
-
-                <label htmlFor='lifeSpan'>Life span:</label>
-                <input type="text" id='lifeSpan' placeholder="Enter life span (min - max)" required name='lifeSpan' value={inputs.lifeSpan} onChange={onChangeHandler}/> Years
-                {!errors.lifeSpan ? null : <span>{errors.lifeSpan}</span>}
-
-                <label>Add Temperaments:</label>
-                <div>
-                    <select name="temperamentsId" onChange={onChangeHandler} >
-                        <option>None</option>
-                        {temperaments.map(e=> <option key={e.id} value={e.name}>{e.name}</option>)}
-                    </select>
+            <Container>
+                <h1>Create your own breed</h1>
+                <Form onSubmit={onSubmitHandler}>
+                    <Info>
+                        <Label htmlFor='name'>Name:</Label>
+                        <Input type="text" id='name' placeholder="Enter a name" required name='name' value={inputs.name} onChange={onChangeHandler} />
+                        {!errors.name ? null : <ErrorMsg>{errors.name}</ErrorMsg>}
+                    </Info>
                     
-                    {inputs.temperamentName.map(e => <div key={e}>{e} <button value={e} onClick={removeTemperament}>X</button></div>)}
-                </div>
-                
-                <input type='submit' value='Create!'/>
-            </Form>
-
+                    <Info>
+                        <Label htmlFor='img'>Image (optional):</Label>
+                        <Input type="text" id='img' placeholder="Enter a valid URL" name='img' value={inputs.img} onChange={onChangeHandler}/>
+                        {!errors.img ? null : <ErrorMsg>{errors.img}</ErrorMsg>}
+                    </Info>
+                   
+                    <Info>
+                        <Label htmlFor='height'>Height (cm):</Label>
+                        <Input type="text" id='height' placeholder="Enter height (min - max)"  required name='height' value={inputs.height} onChange={onChangeHandler}/>
+                        {!errors.height ? null : <ErrorMsg>{errors.height}</ErrorMsg>}
+                    </Info>
+                    
+                    <Info>
+                        <Label htmlFor='weight'>Weight (Kg):</Label>
+                        <Input type="text" id='weight' placeholder="Enter weight (min - max)" required name='weight' value={inputs.weight} onChange={onChangeHandler}/>
+                        {!errors.weight ? null : <ErrorMsg>{errors.weight}</ErrorMsg>}
+                    </Info>
+                    
+                    <Info>
+                        <Label htmlFor='lifeSpan'>Life span (years):</Label>
+                        <Input type="text" id='lifeSpan' placeholder="Enter life span (min - max)" required name='lifeSpan' value={inputs.lifeSpan} onChange={onChangeHandler}/>
+                        {!errors.lifeSpan ? null : <ErrorMsg>{errors.lifeSpan}</ErrorMsg>}
+                    </Info>
+                    
+                    <TempSection>
+                        <Label>Add Temperaments:</Label>
+                        <Dropdown>
+                            <Select name="temperamentsId" onChange={onChangeHandler} >
+                                <option>None</option>
+                                {temperaments.map(e=> <option key={e.id} value={e.name}>{e.name}</option>)}
+                            </Select>
+                            <SelectedItems>
+                                {inputs.temperamentName.map(e => <TempBtn key={e} value={e} onClick={removeTemperament}>{e}</TempBtn>)}
+                            </SelectedItems>
+                            
+                        </Dropdown>
+                    </TempSection>
+                    
+                    <ButtonDiv>
+                        <Button type='submit' value='Create!'/>
+                    </ButtonDiv>
+                    
+                </Form>
+            </Container>
         </FormWrapper>
     )
 }

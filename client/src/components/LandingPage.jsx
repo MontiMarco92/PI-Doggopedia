@@ -1,13 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { BgImg, Title, Container, Btn, EnterLink } from "./styles/LandingPage.styled";
 
 export function LandingPage() {
 	return (
-		<div>
-			<h1>Welcome to Doggopedia</h1>
-			<button type="button">
-				<Link to="/home">Start Now!</Link>
-			</button>
-		</div>
+		<BgImg>
+			<Container>
+				<Title>Welcome to Doggopedia</Title>
+				<Btn type="button">
+					<EnterLink to="/home">Start Now!</EnterLink>
+				</Btn>
+			</Container>
+			
+		</BgImg>
 	);
 }

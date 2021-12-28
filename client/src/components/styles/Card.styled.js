@@ -17,7 +17,8 @@ export const CardsWrapper = styled.div`
 `;
 
 export const Card = styled.div`
-	background: #f9f7f7;
+	background: var(--filter2);
+
 	display: flex;
 	border: none;
 	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
@@ -32,6 +33,7 @@ export const Card = styled.div`
 
 export const CardLink = styled(Link)`
 	text-decoration: none;
+	width: 100%;
 `;
 
 export const ImgContent = styled.div`
@@ -50,7 +52,7 @@ export const Img = styled.img`
 export const Content = styled.div`
 	text-align: center;
 	padding: 15px;
-	color: #112d4e;
+	color: var(--text);
 
 	h2 {
 		margin: 10px 0;

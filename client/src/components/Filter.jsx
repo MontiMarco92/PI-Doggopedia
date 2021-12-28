@@ -80,15 +80,14 @@ const Filter = () => {
 
     return (
         <FilterWrapper >
-            <Title>Filter by:</Title>
-
+            
             <FilterDiv>
+                <Title>Filter by:</Title>
+
                 <SubTitle>Temperament</SubTitle>
                 {showDataTempMenu()}
-            </FilterDiv>
-
-            <FilterDiv>
-                <SubTitle>Existence:</SubTitle>
+            
+                <SubTitle>Existence</SubTitle>
                     <Label>
                         <input type='radio' id='all' name='breeds' value='all' checked={inputs.radio === 'all'} onChange={radioChangeHandler}/>
                         <span>All</span>
@@ -103,8 +102,8 @@ const Filter = () => {
                     </Label>
             </FilterDiv>
             
-            <Title>Sort by:</Title>
             <FilterDiv>
+                <Title>Sort by:</Title>
                 <Select onChange={sortChangeHandler} value={inputs.selectSort}>
                     <option value='A-Z'>A-Z</option>
                     <option value='Z-A'>Z-A</option>

@@ -1,44 +1,45 @@
 import styled from "styled-components";
 
 export const FilterWrapper = styled.div`
-	width: 30%;
+	width: 25%;
 	display: flex;
 	flex-direction: column;
-	background-color: #f9f7f7;
-
-	border-right: 4px solid #112d4e;
+	background-color: var(--filter);
+	border-right: 4px solid var(--text);
 `;
 
 export const FilterDiv = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 30px 0;
 	text-align: center;
+	padding-bottom: 40px;
 `;
 
 export const Title = styled.h3`
-    font-size: 1.5rem;
-    color: #112D4E;
-    display: block:
-    text-align: right;
-    padding: 20px 15px 10px;
-    border-top: 2px solid #112D4E;
+	font-size: 1.5rem;
+	background: var(--green);
+	color: var(--text);
+	width: 100%;
+	padding: 15px 20px;
+	margin-bottom: 20px;
 `;
 
 export const SubTitle = styled.h5`
 	font-size: 1.4rem;
-	color: #112d4e;
+	color: var(--text);
 	margin: 15px 0;
+	text-decoration: underline;
+	text-decoration-thickness: 0.1rem;
 `;
 
 export const Select = styled.select`
 	font-size: 1.1rem;
 	width: 70%;
 	padding: 8px 12px;
-	color: #393e46;
-	background-color: #dbe2ef;
-	border: 1px solid #112d4e;
+	color: var(--text2);
+	background-color: var(--filter2);
+	border: 1px solid var(--text);
 	cursor: pointer;
 	border-radius: 3px;
 	margin: 15px 0;
@@ -46,21 +47,21 @@ export const Select = styled.select`
 
 	&:hover {
 		box-shadow: 0 10px 15px #c9d6df;
-		border: 3px solid #112d4e;
+		border: 3px solid var(--text);
 	}
 
 	::-webkit-scrollbar {
 		width: 0.8rem;
 	}
 	::-webkit-scrollbar-track {
-		background: #3f72af;
+		background: var(--scrollbar-track);
 	}
 	::-webkit-scrollbar-thumb {
-		background: #112d4e;
+		background: var(--text);
 		border-radius: 10px;
 
 		&:hover {
-			background: #0f4c75;
+			background: var(--scrollbar-hover);
 		}
 	}
 `;
@@ -69,9 +70,8 @@ export const Label = styled.label`
 	display: flex;
 	width: 100%;
 	padding-left: 50px;
-	cursor: pointer;
 	font-size: 1.1rem;
-	color: #393e46;
+	color: var(--text2);
 	margin: 10px 0;
 
 	input[type="radio"] {
@@ -82,15 +82,16 @@ export const Label = styled.label`
 		padding: 10px 20px 10px 10px;
 		border-radius: 20px;
 		transition: 0.25s ease;
+		cursor: pointer;
 
 		&:hover {
-			background-color: #dbe2ef;
+			background-color: var(--filter);
 		}
 	}
 
 	span::before {
 		content: "";
-		background-color: #fff;
+		background-color: var(--white);
 		width: 20px;
 		height: 20px;
 		border-radius: 50%;
@@ -100,7 +101,7 @@ export const Label = styled.label`
 	}
 
 	input[type="radio"]:checked + span {
-		background-color: #dbe2ef;
+		background-color: var(--filter2);
 	}
 
 	input[type="radio"]:checked + span::before {
@@ -109,8 +110,8 @@ export const Label = styled.label`
 `;
 
 export const ResetButton = styled.button`
-	background-color: #112d4e;
-	color: #fff;
+	background-color: var(--text);
+	color: var(--white);
 	border: 0;
 	border-radius: 5px;
 	height: 35px;
@@ -124,8 +125,8 @@ export const ResetButton = styled.button`
 
 	&:hover {
 		cursor: pointer;
-		border: 1px solid #112d4e;
-		background-color: #fff;
-		color: #112d4e;
+		border: 1px solid var(--text);
+		background-color: var(--white);
+		color: var(--text);
 	}
 `;

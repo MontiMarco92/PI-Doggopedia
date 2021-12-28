@@ -29,9 +29,9 @@ export function DetailCard (){
                             <h4>Temperaments:</h4>
                             <p>{temperament}</p>
                         </div>
-                        <h4>Weight: {weight} Kg</h4>
-                        <h4>Height: {height} cm</h4>
-                        <h4>Lifespan: {lifeSpan}</h4> 
+                        <h4>Weight: <span>{weight} Kg</span></h4>
+                        <h4>Height: <span>{height} cm</span></h4>
+                        <h4>Lifespan: <span>{lifeSpan}</span></h4> 
                     </Content>
                 </Card>
             )   

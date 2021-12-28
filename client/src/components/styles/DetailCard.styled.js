@@ -4,14 +4,19 @@ export const DetailWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 10%;
+	height: 87vh;
+	width: 100%;
 `;
 
 export const Card = styled.div`
 	display: flex;
 	box-shadow: 6px 15px 15px 0px rgba(0, 0, 0, 0.3);
-	border: 3px solid #112d4e;
+	border: 2px solid var(--text);
+	background: var(--filter2);
 	border-radius: 10px;
+	margin-top: 25px;
+	max-width: 60%;
+	max-height: 70%;
 
 	@media (max-width: 1200px) {
 		flex-direction: column;
@@ -19,9 +24,8 @@ export const Card = styled.div`
 `;
 
 export const ImgContent = styled.div`
-	width: 700px;
-	height: 100%;
-
+	display: flex;
+	flex: 1;
 	@media (max-width: 1200px) {
 	}
 `;
@@ -29,30 +33,44 @@ export const ImgContent = styled.div`
 export const Img = styled.img`
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: contain;
+	object-position: top;
 	border-radius: 50px;
 	padding: 40px;
 `;
 
 export const Content = styled.div`
 	display: flex;
+	flex: 1;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: flex-start;
 	margin-right: 40px;
 	padding: 40px 0;
+	color: var(--text);
 
 	h2 {
 		font-size: 2rem;
+		width: 100%;
+		text-align: center;
+		padding: 5px 0;
+		border-top: 2px solid var(--green);
+		border-bottom: 2px solid var(--green);
 	}
 
 	h4 {
-		font-size: 1.1rem;
+		font-size: 1.3rem;
 		padding: 10px 0;
+
+		span {
+			font-size: 1.2rem;
+			font-weight: normal;
+			letter-spacing: 1.3px;
+		}
 	}
 	p {
-		font-size: 1rem;
-		letter-spacing: 1.5px;
+		font-size: 1.2rem;
+		letter-spacing: 1.3px;
 	}
 
 	@media (max-width: 1200px) {
@@ -77,11 +95,11 @@ export const Content = styled.div`
 export const LoadingMsg = styled.span`
 	font-size: 1.6rem;
 	font-weight: 500;
-	color: #112d4e;
+	color: vaR(--text);
 `;
 
 export const ErrorMsg = styled.span`
 	font-size: 1.6rem;
 	font-weight: 500;
-	color: #c50000;
+	color: var(--errorMsg);
 `;
