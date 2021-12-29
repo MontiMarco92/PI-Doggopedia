@@ -9,9 +9,9 @@ router.get("/:breedId", async (req, res) => {
 	try {
 		//if breedId is a number then comes from API, else comes from DB as id is saved as UUID.
 		if (Number(breedId) <= 1000) {
-			console.log("entra al if");
+			//request data from API
 			const apiResponse = await apiRequest();
-
+			// find the element that matches de provided id through params in api response
 			const aux = apiResponse.find((e) => e.id === Number(breedId));
 			const result = {
 				id: aux.id, //id?
@@ -25,7 +25,7 @@ router.get("/:breedId", async (req, res) => {
 
 			res.send(result);
 		} else {
-			console.log("entra al else");
+			// find the element that matches de provided id through params in database
 			const dbResponse = await Dog.findByPk(breedId, {
 				attributes: { exclude: ["createdAt", "updatedAt"] },
 				include: [
@@ -39,8 +39,8 @@ router.get("/:breedId", async (req, res) => {
 				],
 			});
 			const result = {
-				id: dbResponse.id, //id?
-				img: dbResponse.image,
+				id: dbResponse.id,
+				img: dbResponse.img,
 				name: dbResponse.name,
 				temperament: dbResponse.temperaments.flatMap((i) => i.name).join(", "),
 				height: dbResponse.height,
@@ -50,7 +50,7 @@ router.get("/:breedId", async (req, res) => {
 			res.send(result);
 		}
 	} catch (err) {
-		console.log(err);
+		res.sendStatus(400);
 	}
 });
 module.exports = router;

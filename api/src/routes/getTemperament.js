@@ -4,10 +4,11 @@ const { apiRequest } = require("./getDogs.js");
 
 router.get("/", async function (req, res) {
 	try {
+		//DB check to see if there's already temperaments saved
 		const dbCheck = await Temperament.findAll({
 			attributes: { exclude: ["createdAt", "updatedAt"] },
 		});
-
+		//if not, then all the temperaments are brought from API, formatted and filtered, and then saved in DB
 		if (dbCheck.length === 0) {
 			const response = await apiRequest();
 			const aux = response.filter((e) => e.temperament !== undefined);
@@ -23,10 +24,11 @@ router.get("/", async function (req, res) {
 			});
 			res.send(temperaments);
 		} else {
+			//if temperaments are already in DB I simply return all the list
 			res.send(dbCheck);
 		}
 	} catch (err) {
-		console.log(err);
+		res.sendStatus(400);
 	}
 });
 

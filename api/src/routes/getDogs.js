@@ -39,15 +39,28 @@ router.get("/", async (req, res) => {
 
 		//required data is formatted
 		const result = mergedData.map((e) => {
+			//created an aux function to deal with NaN results for weight values that came from API so afterwards sorting by weight is easier
+			function helperWeight(el) {
+				if (el === "NaN") {
+					return "Unknown";
+				} else if (el.length < 3) {
+					return el;
+				} else if (el.split(" - ")[1].includes("NaN")) {
+					return el.split(" - ")[0];
+				} else if (el.split(" - ")[0].includes("NaN")) {
+					return el.split(" - ")[1];
+				} else return el;
+			}
+
 			return {
-				id: e.id, //id?
-				img: e.image.url,
+				id: e.id,
+				img: e.image ? e.image.url : e.img,
 				name: e.name,
 				//some of the dogs don't have temperaments associated so I have to validate to be able to apply flatmap method to the valid ones.
 				temperament: e.temperaments
 					? e.temperaments.flatMap((i) => i.name).join(", ")
 					: e.temperament,
-				weight: e.weight.metric ? e.weight.metric : e.weight,
+				weight: e.weight.metric ? helperWeight(e.weight.metric) : e.weight,
 			};
 		});
 
@@ -65,9 +78,8 @@ router.get("/", async (req, res) => {
 		// solucionar situacion en que cuando no existe algo diferente a name en query string devuelva error, y si no hay nada por query devolver
 		// listado completo de perros
 	} catch (err) {
-		console.log(err);
+		res.sendStatus(400);
 	}
-	//averiguar como manejar errores.. que codigo mandar al front en caso de error, etc.
 });
 
 module.exports = {
