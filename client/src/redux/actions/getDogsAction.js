@@ -6,7 +6,6 @@ export const GET_DOGS_ERROR = "GET_DOGS_ERROR";
 export const CLEAR_DOGS = "CLEAR_DOGS";
 export const FILTER_BY_TEMP = "FILTER_BY_TEMP";
 export const FILTER_BY_EXISTENCE = "FILTER_BY_EXISTENCE";
-export const RESET_FILTERS = "RESET_FILTERS";
 export const SORT_BY = "SORT_BY";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -39,15 +38,9 @@ export function filterByExistence(filter) {
 	};
 }
 
-export function resetFilters() {
-	return {
-		type: RESET_FILTERS,
-	};
-}
-
-export function sortBy(sort) {
+export function sortBy(filter) {
 	return {
 		type: SORT_BY,
-		payload: sort,
+		payload: filter.sort,
 	};
 }

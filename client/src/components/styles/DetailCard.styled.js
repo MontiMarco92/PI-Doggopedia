@@ -10,6 +10,7 @@ export const DetailWrapper = styled.div`
 
 export const Card = styled.div`
 	display: flex;
+	flex-direction: column;
 	box-shadow: 6px 15px 15px 0px rgba(0, 0, 0, 0.3);
 	border: 2px solid var(--text);
 	background: var(--filter2);
@@ -23,6 +24,9 @@ export const Card = styled.div`
 	}
 `;
 
+export const MainContent = styled.div`
+	display: flex;
+`;
 export const ImgContent = styled.div`
 	display: flex;
 	flex: 1;
@@ -102,4 +106,27 @@ export const ErrorMsg = styled.span`
 	font-size: 1.6rem;
 	font-weight: 500;
 	color: var(--errorMsg);
+`;
+
+export const DeleteBtn = styled.button`
+	background-color: var(--text);
+	color: var(--white);
+	width: 100%;
+	border: 0;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	height: 35px;
+	font-size: 1.2rem;
+	display: block;
+	align-items: center;
+	padding: 0 15px;
+	border: 1px solid transparent;
+	transition: all 0.2s ease;
+
+	&:hover {
+		cursor: pointer;
+		border: 1px solid var(--text);
+		background-color: var(--white);
+		color: var(--text);
+	}
 `;

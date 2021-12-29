@@ -31,7 +31,7 @@ export const Button = styled.button`
 	font-weight: 600;
 	font-size: 1.1rem;
 	border-bottom: 2px solid transparent;
-
+	outline: none;
 	background: var(--scrollbar-track);
 	transition: all 0.3s ease;
 

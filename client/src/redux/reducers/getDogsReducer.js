@@ -4,7 +4,6 @@ import {
 	GET_DOGS_SUCCESS,
 	FILTER_BY_TEMP,
 	FILTER_BY_EXISTENCE,
-	RESET_FILTERS,
 	SORT_BY,
 } from "../actions/getDogsAction";
 
@@ -19,18 +18,17 @@ const getDogsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case GET_DOGS_LOADING:
 			return {
-				...state,
 				dogs: [],
+				filteredDogs: [],
 				loading: true,
 				errorMsg: "",
 			};
 		case GET_DOGS_SUCCESS:
 			return {
-				...state,
 				loading: false,
 				errorMsg: "",
-				dogs: action.payload,
-				filteredDogs: action.payload,
+				dogs: [...action.payload],
+				filteredDogs: [...action.payload],
 			};
 
 		case GET_DOGS_ERROR:
@@ -45,10 +43,10 @@ const getDogsReducer = (state = initialState, action) => {
 				...state,
 				filteredDogs:
 					temp !== "all"
-						? state.filteredDogs.filter((e) => {
+						? state.dogs.filter((e) => {
 								return e.temperament && e.temperament.includes(temp);
 						  })
-						: state.dogs,
+						: [...state.dogs],
 			};
 		case FILTER_BY_EXISTENCE:
 			const breeds = action.payload;
@@ -57,7 +55,7 @@ const getDogsReducer = (state = initialState, action) => {
 				...state,
 				filteredDogs:
 					breeds === "all"
-						? state.filteredDogs
+						? state.dogs
 						: breeds === "existing"
 						? state.filteredDogs.filter((e) => {
 								return e.id < 1000;
@@ -110,12 +108,6 @@ const getDogsReducer = (state = initialState, action) => {
 								return avgB - avgA;
 						  }),
 				// ? state.filteredDogs.sort((a, b)=> {return a.})
-			};
-
-		case RESET_FILTERS:
-			return {
-				...state,
-				filteredDogs: state.dogs,
 			};
 
 		default:

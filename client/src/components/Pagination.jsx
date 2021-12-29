@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { dogsPerPage } from './Home';
 import { Button, Item, List, PaginationWrapper } from './styles/Pagination.styled';
 
 export const Pagination = ({changePage, totalPages, currentPage}) => {
@@ -27,7 +26,7 @@ export const Pagination = ({changePage, totalPages, currentPage}) => {
             : <PaginationWrapper>
                 <List>
                     <Item><Button value='<' onClick={(e) => changePage(e.target.value)}>{'<'}</Button></Item>
-                    <Item><Button value='start' onClick={(e) => changePage(e.target.value)}>{'Start'}</Button></Item>
+                    <Item><Button value='start' autoFocus onClick={(e) => changePage(e.target.value)}>{'Start'}</Button></Item>
                     
                     {arr.map(e =>{
                         return <Item key={e}><Button onClick={() => changePage(e)}>{e}</Button></Item>

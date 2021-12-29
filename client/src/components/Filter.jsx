@@ -2,26 +2,20 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { filterByExistence, filterByTemp, resetFilters, sortBy } from '../redux/actions/getDogsAction';
+import { filterByExistence, filterByTemp, sortBy } from '../redux/actions/getDogsAction';
 import { FilterWrapper, FilterDiv, Title, SubTitle, Select, Label, ResetButton } from './styles/Filter.styled';
 
 const Filter = () => {
     const dispatch = useDispatch();
-    const temperamentState = useSelector(state => state.getTemperaments);
-    const {temperaments, loading, errorMsg} = temperamentState;
+    const stateTemp = useSelector(state => state.getTemperaments);
+    const {temperaments, loading, errorMsg} = stateTemp;
     const [filter, setFilter] = useState({
         temp: 'all',
         breedsToShow: 'all',
+        sort: 'A-Z'
     });
-    const [sort, setSort] = useState('random');
-    const [inputs, setInputs] = useState({
-        selectTemp: 'all',
-        radio: 'all',
-        selectSort: 'A-Z'
-    })
-  
-
-
+    
+    
     useEffect(()=>{
         dispatch(filterByTemp(filter));
     },[filter.temp])
@@ -31,33 +25,41 @@ const Filter = () => {
     },[filter.breedsToShow])
     
     useEffect(()=>{
-        dispatch(sortBy(sort));
-    },[sort])
+        dispatch(sortBy(filter));
+    },[filter.sort])
    
    
 
     const tempChangeHandler =(e)=>{
         setFilter({...filter, temp: e.target.value})
-        setInputs({...inputs, selectTemp: e.target.value})
+        
     }
    
     const radioChangeHandler =(e)=>{
-        setFilter({...filter, breedsToShow: e.target.value})
-        setInputs({...inputs, radio: e.target.value})
+        
+        if(e.target.value === 'all') {
+            setFilter({
+                temp: 'all',
+                breedsToShow: e.target.value
+        })}
+        else{setFilter({
+            ...filter, breedsToShow: e.target.value
+        })}
+        
     }
     
     const sortChangeHandler =(e)=>{
-        setSort(e.target.value);
-        setInputs({...inputs, selectSort: e.target.value})
+        setFilter({
+            ...filter, sort: e.target.value
+        })
     }
     
     const resetFilter =()=>{
-        dispatch(resetFilters())
-        setInputs({ 
-            selectTemp: 'all',
-            radio: 'all',
-            selectSort: 'A-Z'
-        })
+        setFilter({
+            temp: 'all',
+            breedsToShow: 'all',
+            sort: 'A-Z'
+        });
     }
     
 
@@ -68,7 +70,7 @@ const Filter = () => {
             return <span>Loading...</span>
         }else if(temperaments.length>0){
             return (
-                <Select onChange={tempChangeHandler} value={inputs.selectTemp}>
+                <Select onChange={tempChangeHandler} value={filter.temp}>
                     <option value='all'>All</option>
                     {temperaments.map(e => <option key={e.id} value={e.name}>{e.name}</option>)}
                 </Select> 
@@ -89,22 +91,22 @@ const Filter = () => {
             
                 <SubTitle>Existence</SubTitle>
                     <Label>
-                        <input type='radio' id='all' name='breeds' value='all' checked={inputs.radio === 'all'} onChange={radioChangeHandler}/>
+                        <input type='radio' id='all' name='breeds' value='all' checked={filter.breedsToShow === 'all'} onChange={radioChangeHandler}/>
                         <span>All</span>
                     </Label>
                     <Label>
-                        <input type='radio' id='existing' name='breeds' value='existing' checked={inputs.radio === 'existing'} onChange={radioChangeHandler}/>
+                        <input type='radio' id='existing' name='breeds' value='existing' checked={filter.breedsToShow === 'existing'} onChange={radioChangeHandler}/>
                         <span>Existing</span>
                     </Label>
                     <Label>
-                        <input type='radio' id='created' name='breeds' value='created' checked={inputs.radio === 'created'} onChange={radioChangeHandler}/>
+                        <input type='radio' id='created' name='breeds' value='created' checked={filter.breedsToShow === 'created'} onChange={radioChangeHandler}/>
                         <span>Created by User</span>
                     </Label>
             </FilterDiv>
             
             <FilterDiv>
                 <Title>Sort by:</Title>
-                <Select onChange={sortChangeHandler} value={inputs.selectSort}>
+                <Select onChange={sortChangeHandler} value={filter.sort}>
                     <option value='A-Z'>A-Z</option>
                     <option value='Z-A'>Z-A</option>
                     <option value='wt+-'>Weight (+/-)</option>

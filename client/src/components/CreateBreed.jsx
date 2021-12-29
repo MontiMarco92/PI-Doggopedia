@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { getTemperaments } from '../redux/actions/getTemperamentsAction';
 import { Form, FormWrapper, Container, Label, Input, Info, Button, ButtonDiv, ErrorMsg, Select, Dropdown, SelectedItems, TempBtn, TempSection } from "./styles/CreateBreed.styled";
+import { Alert } from './Alert';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -21,11 +22,12 @@ export function CreateBreed (){
     })
     const [errors, setErrors] = useState('')
 
+    const [showAlert, setShowAlert] = useState('');
+
     useEffect(()=>{
         if(temperaments.length === 0){
             dispatch(getTemperaments())
-        }
-        
+        } 
     }, [])
 
     const validate = (inputs) => {
@@ -88,24 +90,28 @@ export function CreateBreed (){
 
     const onSubmitHandler = async (e)=>{
         e.preventDefault()
-        if(Object.keys(errors).length !== 0){console.log('error') }
+        if(errors && Object.keys(errors).length > 0){
+            return setShowAlert('errorSubmit')}
         
         else{
             try{
-                console.log(inputs)
-                const response = await axios.post(`${baseUrl}/dog`, inputs);   
-            } catch(err){console.log(err)}
+                await axios.post(`${baseUrl}/dog`, inputs);
+                
+                setInputs({
+                    name: '',
+                    img: '',
+                    height: '',
+                    weight: '',
+                    lifeSpan: '',
+                    temperamentName: []
+                })
+                navigate('/home'); 
+
+            } catch(err){setShowAlert('postError')}
         }
-        setInputs({
-            name: '',
-            img: '',
-            height: '',
-            weight: '',
-            lifeSpan: '',
-            temperamentName: []
-        })
-        navigate('/home'); 
+        
     }
+
 
     return(
         <FormWrapper>
@@ -159,6 +165,17 @@ export function CreateBreed (){
                     <ButtonDiv>
                         <Button type='submit' value='Create!'/>
                     </ButtonDiv>
+                    {showAlert === 'errorSubmit' 
+                    ? <Alert setShow = {setShowAlert} type={'errorAlert'}>
+                        <h2>Submit Error</h2>
+                        <p>The form cannot be submitted unless it has valid information</p>
+                        </Alert> 
+                    : showAlert === 'postError' 
+                    ? <Alert setShow = {setShowAlert} type={'errorAlert'}>
+                        <h2>Server Post Error</h2>
+                        <p>The breed could not be added</p>
+                        </Alert>
+                    : null}
                     
                 </Form>
             </Container>

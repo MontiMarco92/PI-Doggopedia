@@ -2,7 +2,7 @@ import React from "react";
 import { Nav, NavTitle, NavIcon, NavForm, NavInput, NavButton, CreateLink } from './styles/Navbar.styled';
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { getDogs } from "../redux/actions/getDogsAction";
 
@@ -10,17 +10,18 @@ export function Navbar() {
 	const [createLink, setCreateLink] = useState(true);
 	const [searchStr, setSearchStr] = useState('');
 	const location = useLocation();
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (window.location.pathname === "/home/createBreed") {
 			setCreateLink(false);
-		}
+		} else {setCreateLink(true)}
 	}, [location]);
 
 	const onSearch = (e) =>{
 		e.preventDefault();
-		
+		navigate('/home');
 		dispatch(getDogs(searchStr))
 		setSearchStr('');
 	//solucionar redireccionamiento de pagina cuando se hace la busqueda desde ruta 'createBreed'	

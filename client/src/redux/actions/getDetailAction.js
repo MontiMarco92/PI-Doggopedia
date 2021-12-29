@@ -12,7 +12,9 @@ export function getDogDetail(breedId) {
 
 			const response = await axios.get(`${baseUrl}/dogs/${breedId}`);
 			dispatch({ type: GET_DOG_DETAIL_SUCCESS, payload: response.data });
+			console.log(response.data);
 		} catch (err) {
+			console.log(err);
 			dispatch({ type: GET_DOG_DETAIL_ERROR });
 		}
 	};

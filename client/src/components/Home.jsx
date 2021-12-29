@@ -12,20 +12,25 @@ export const dogsPerPage = 8;
 
 export function Home() {
 	const dispatch = useDispatch();
-	const state = useSelector(state => state.getDogs);
-    const totalPages = Math.ceil(state.filteredDogs.length / dogsPerPage);
+	const stateDogs = useSelector(state => state.getDogs);
+	const stateTemp = useSelector(state => state.getTemperaments);
+    const totalPages = Math.ceil(stateDogs.filteredDogs.length / dogsPerPage);
 
 	const [currentPage, setCurrentPage] = useState(1);
 
 	
 	useEffect(() => {
+		
 		dispatch(getDogs());
-		dispatch(getTemperaments());
-	}, []);
+		if(stateTemp.temperaments.length === 0){
+			dispatch(getTemperaments());
+		}
+		
+	}, [dispatch]);
 	
 	const indexLastDog = currentPage * dogsPerPage;
 	const indexFirstDog = indexLastDog - dogsPerPage;
-	const currentDogs = state.filteredDogs.slice(indexFirstDog, indexLastDog);
+	const currentDogs = stateDogs.filteredDogs.slice(indexFirstDog, indexLastDog);
 	
 	const changePage = (pageNumber) =>{
 		if(pageNumber === '<') {return currentPage > 1 ? setCurrentPage(currentPage-1) : null}
@@ -36,17 +41,17 @@ export function Home() {
 	}
 
 	const showData = () =>{
-		if (state.loading) {
+		if (stateDogs.loading) {
 			return <LoadingMsg>Loading...</LoadingMsg>
 		}
-		else if(state.filteredDogs.length>0) {
+		else if(stateDogs.filteredDogs.length>0) {
 			return (
 				<CardsWrapper>
 					<Cards currentDogs={currentDogs}/>
 				</CardsWrapper>
 			)}
 		else {
-			return <ErrorMsg>{state.errorMsg}</ErrorMsg>
+			return <ErrorMsg>{stateDogs.errorMsg}</ErrorMsg>
 		}
 	}
 	

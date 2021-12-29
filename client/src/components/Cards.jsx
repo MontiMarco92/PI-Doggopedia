@@ -1,9 +1,8 @@
 import React from "react";
 import { Card, CardLink, Content, Img, ImgContent } from "./styles/Card.styled";
 
-export function Cards (x) {
-    const {currentDogs} = x
-
+export function Cards ({currentDogs}) {
+    
     const renderList = currentDogs.map(e =>{
         const {id, img, name, temperament, weight} = e;
         return (
