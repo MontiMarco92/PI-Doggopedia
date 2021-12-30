@@ -12,21 +12,17 @@ export const Pagination = ({changePage, totalPages, currentPage}) => {
     
     let arr = [];
    
-   
-
-        if(currentPage < 3){ arr = pageNumbers.slice(0, 5)}
-        else if (currentPage> totalPages-3) { arr = pageNumbers.slice(totalPages -5, totalPages)}
-        else {arr = pageNumbers.slice(currentPage-3, currentPage + 2)};
+    if(currentPage < 3){ arr = pageNumbers.slice(0, 5)}
+    else if (currentPage> totalPages-3) { arr = pageNumbers.slice(totalPages -5, totalPages)}
+    else {arr = pageNumbers.slice(currentPage-3, currentPage + 2)};
         
-    
-
     const showData = () =>{
         return state.loading || state.errorMsg !== ''
             ? null
             : <PaginationWrapper>
                 <List>
                     <Item><Button value='<' onClick={(e) => changePage(e.target.value)}>{'<'}</Button></Item>
-                    <Item><Button value='start' autoFocus onClick={(e) => changePage(e.target.value)}>{'Start'}</Button></Item>
+                    <Item><Button value='start' onClick={(e) => changePage(e.target.value)}>{'Start'}</Button></Item>
                     
                     {arr.map(e =>{
                         return <Item key={e}><Button onClick={() => changePage(e)}>{e}</Button></Item>
@@ -36,7 +32,6 @@ export const Pagination = ({changePage, totalPages, currentPage}) => {
                 </List>
             </PaginationWrapper>
     }
-
 
     return (
         showData()

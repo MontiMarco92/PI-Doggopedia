@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export const CardsWrapper = styled.div`
 	display: grid;
+	width: 100%;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(2, 1fr);
 	gap: 20px;
@@ -38,7 +39,7 @@ export const CardLink = styled(Link)`
 
 export const ImgContent = styled.div`
 	width: 100%;
-	height: 200px;
+	height: 250px;
 `;
 export const Img = styled.img`
 	width: 100%;

@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getTemperaments } from '../redux/actions/getTemperamentsAction';
 import { Form, FormWrapper, Container, Label, Input, Info, Button, ButtonDiv, ErrorMsg, Select, Dropdown, SelectedItems, TempBtn, TempSection } from "./styles/CreateBreed.styled";
 import { Alert } from './Alert';
-
-const baseUrl = process.env.REACT_APP_BASE_URL;
+import { baseUrl } from "../redux/variables";
 
 export function CreateBreed (){
     const dispatch = useDispatch();
@@ -38,25 +37,25 @@ export function CreateBreed (){
             errors.name = 'Name is invalid - Only letters are valid'
         }
         if(!inputs.weight){errors.weight = 'Weight is required'}
-        else if(!/^([1-9]|[1-9][0-9])-{1}([1-9]|[1-9][0-9]|100)$/gm.test(inputs.weight) ){
-            errors.weight = 'Weight is invalid - Valid format is 1-100'
+        else if(!/^([1-9]|[1-9][0-9]) {1}-{1} {1}([1-9]|[1-9][0-9]|100)$/gm.test(inputs.weight) ){
+            errors.weight = 'Weight is invalid - Valid format is 1 - 100'
         } else if(Number(inputs.weight.split('-')[0]) > Number(inputs.weight.split('-')[1])){
             errors.weight = 'Min value cannot be greater than max value'
         }
         if(!inputs.height){errors.height = 'Height is required'}
-        else if(!/^([1-9]|[1-9]\d|1[0-4]\d|150)-{1}([1-9]|[1-9]\d|1[0-4]\d|150)$/gm.test(inputs.height)){
-            errors.height = 'Height is invalid - Valid format is 1-150'
+        else if(!/^([1-9]|[1-9]\d|1[0-4]\d|150) {1}-{1} {1}([1-9]|[1-9]\d|1[0-4]\d|150)$/gm.test(inputs.height)){
+            errors.height = 'Height is invalid - Valid format is 1 - 150'
         } else if(Number(inputs.height.split('-')[0]) > Number(inputs.height.split('-')[1])){
             errors.height = 'Min value cannot be greater than max value'
         }
         if(!inputs.lifeSpan){errors.lifeSpan = 'Life span is required'}
-        else if(!/^([1-9]|1\d|2[0-5])-{1}([1-9]|1\d|2[0-5])$/gm.test(inputs.lifeSpan)){
-            errors.lifeSpan = 'Life span is invalid - Valid format is 1-25'
+        else if(!/^([1-9]|1\d|2[0-5]) {1}-{1} {1}([1-9]|1\d|2[0-5])$/gm.test(inputs.lifeSpan)){
+            errors.lifeSpan = 'Life span is invalid - Valid format is 1 - 25'
         }else if(Number(inputs.lifeSpan.split('-')[0]) > Number(inputs.lifeSpan.split('-')[1])){
             errors.lifeSpan = 'Min value cannot be greater than max value'
         }
         if(inputs.img && !/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm.test(inputs.img)){
-            errors.img = 'Please enter a valud URL'
+            errors.img = 'Please enter a valid URL'
         }
         return errors;
    }

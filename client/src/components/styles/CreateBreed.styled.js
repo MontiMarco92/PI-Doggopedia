@@ -84,7 +84,7 @@ export const Select = styled.select`
 	font-size: 1rem;
 	height: 2.5rem;
 	flex: 1;
-	padding: 8px 12px;
+	padding: 5px 12px;
 	color: var(--text2);
 	outline: none;
 	border: 3px solid transparent;

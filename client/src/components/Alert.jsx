@@ -3,8 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AlertBox, AlertWrapper, ErrorMsg } from "./styles/Alert.styled";
-
-const baseUrl = process.env.REACT_APP_BASE_URL;
+import { baseUrl } from "../redux/variables";
 
 export const Alert = (props) =>{
     const {setShow, type} = props;

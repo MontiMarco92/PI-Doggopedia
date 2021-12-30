@@ -2,7 +2,7 @@ import {
 	GET_TEMPERAMENTS_ERROR,
 	GET_TEMPERAMENTS_LOADING,
 	GET_TEMPERAMENTS_SUCCESS,
-} from "../actions/getTemperamentsAction";
+} from "../variables";
 
 const initialState = {
 	loading: false,
@@ -22,7 +22,7 @@ const getTemperamentsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				loading: false,
-				temperaments: action.payload,
+				temperaments: action.payload.sort((a, b) => (a.name > b.name ? 1 : -1)),
 				errorMsg: "",
 			};
 		case GET_TEMPERAMENTS_ERROR:

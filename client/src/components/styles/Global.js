@@ -21,14 +21,14 @@ const GlobalStyles = createGlobalStyle`
         --border-black: #1a1a1a;
         
     }
-
-    @import url('https://fonts.googleapis.com/css2?family=Andika+New+Basic:wght@400;700&display=swap');
+    /* Warning from React - CCSOM APIs in production don't handle well using CSS @import syntax -- Added font in link tag in HTML
+    /* @import url('https://fonts.googleapis.com/css2?family=Andika+New+Basic:wght@400;700&display=swap'); */
     
     *{
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-        font-family: 'Andika New Basic', sans-serif;
+        font-family: 'Open Sans', sans-serif;
     }
 
     html{

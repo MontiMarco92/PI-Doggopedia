@@ -2,10 +2,8 @@ import {
 	GET_DOGS_ERROR,
 	GET_DOGS_LOADING,
 	GET_DOGS_SUCCESS,
-	FILTER_BY_TEMP,
-	FILTER_BY_EXISTENCE,
-	SORT_BY,
-} from "../actions/getDogsAction";
+	FILTER_BY,
+} from "../variables";
 
 const initialState = {
 	loading: false,
@@ -27,8 +25,8 @@ const getDogsReducer = (state = initialState, action) => {
 			return {
 				loading: false,
 				errorMsg: "",
-				dogs: [...action.payload],
-				filteredDogs: [...action.payload],
+				dogs: action.payload.sort((a, b) => (a.name > b.name ? 1 : -1)),
+				filteredDogs: action.payload.sort((a, b) => (a.name > b.name ? 1 : -1)),
 			};
 
 		case GET_DOGS_ERROR:
@@ -37,77 +35,75 @@ const getDogsReducer = (state = initialState, action) => {
 				loading: false,
 				errorMsg: "Unable to find dogs",
 			};
-		case FILTER_BY_TEMP:
-			const temp = action.payload;
-			return {
-				...state,
-				filteredDogs:
-					temp !== "all"
-						? state.dogs.filter((e) => {
-								return e.temperament && e.temperament.includes(temp);
-						  })
-						: [...state.dogs],
+		case FILTER_BY:
+			const { temp, breedsToShow, sort } = action.payload;
+			const filterTemp = (temp) => {
+				return temp !== "all"
+					? state.dogs.filter((e) => {
+							return e.temperament && e.temperament.includes(temp);
+					  })
+					: [...state.dogs];
 			};
-		case FILTER_BY_EXISTENCE:
-			const breeds = action.payload;
-			//chequear filtro cuando agregue perros.
-			return {
-				...state,
-				filteredDogs:
-					breeds === "all"
-						? state.dogs
-						: breeds === "existing"
-						? state.filteredDogs.filter((e) => {
-								return e.id < 1000;
-						  })
-						: state.filteredDogs.filter((e) => {
-								return typeof e.id === "string";
-						  }),
+
+			const filterExistence = (breedsToShow, x) => {
+				return breedsToShow === "all"
+					? x
+					: breedsToShow === "existing"
+					? x.filter((e) => {
+							return e.id < 1000;
+					  })
+					: x.filter((e) => {
+							return typeof e.id === "string";
+					  });
 			};
-		case SORT_BY:
-			const sort = action.payload;
+
+			const sortBy = (sort, x) => {
+				return sort === "A-Z"
+					? x.sort((a, b) => (a.name > b.name ? 1 : -1))
+					: sort === "Z-A"
+					? x.sort((a, b) => (a.name > b.name ? -1 : 1))
+					: sort === "wt-+"
+					? x.sort((a, b) => {
+							console.log(x);
+							let avgA =
+								a.weight.length > 2
+									? a.weight
+											.split(" - ")
+											.reduce((x, z) => Number(x) + Number(z)) / 2
+									: Number(a.weight);
+							let avgB =
+								b.weight.length > 2
+									? b.weight
+											.split(" - ")
+											.reduce((x, z) => Number(x) + Number(z)) / 2
+									: Number(b.weight);
+
+							return avgA - avgB;
+					  })
+					: x.sort((a, b) => {
+							let avgA =
+								a.weight.length > 2
+									? a.weight
+											.split(" - ")
+											.reduce((x, z) => Number(x) + Number(z)) / 2
+									: Number(a.weight);
+							let avgB =
+								b.weight.length > 2
+									? b.weight
+											.split(" - ")
+											.reduce((x, z) => Number(x) + Number(z)) / 2
+									: Number(b.weight);
+
+							return avgB - avgA;
+					  });
+			};
+			const tempFiltered = filterTemp(temp);
+			const existFiltered = filterExistence(breedsToShow, tempFiltered);
+			const sorted = sortBy(sort, existFiltered);
 
 			return {
 				...state,
-				filteredDogs:
-					sort === "A-Z"
-						? state.filteredDogs.sort((a, b) => (a.name > b.name ? 1 : -1))
-						: sort === "Z-A"
-						? state.filteredDogs.sort((a, b) => (a.name > b.name ? -1 : 1))
-						: sort === "wt-+"
-						? state.filteredDogs.sort((a, b) => {
-								let avgA =
-									a.weight.length > 2
-										? a.weight
-												.split(" - ")
-												.reduce((x, z) => Number(x) + Number(z)) / 2
-										: Number(a.weight);
-								let avgB =
-									b.weight.length > 2
-										? b.weight
-												.split(" - ")
-												.reduce((x, z) => Number(x) + Number(z)) / 2
-										: Number(b.weight);
-
-								return avgA - avgB;
-						  })
-						: state.filteredDogs.sort((a, b) => {
-								let avgA =
-									a.weight.length > 2
-										? a.weight
-												.split(" - ")
-												.reduce((x, z) => Number(x) + Number(z)) / 2
-										: Number(a.weight);
-								let avgB =
-									b.weight.length > 2
-										? b.weight
-												.split(" - ")
-												.reduce((x, z) => Number(x) + Number(z)) / 2
-										: Number(b.weight);
-
-								return avgB - avgA;
-						  }),
-				// ? state.filteredDogs.sort((a, b)=> {return a.})
+				filteredDogs: [...sorted],
 			};
 
 		default:

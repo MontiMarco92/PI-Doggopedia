@@ -2,7 +2,7 @@ import {
 	GET_DOG_DETAIL_ERROR,
 	GET_DOG_DETAIL_LOADING,
 	GET_DOG_DETAIL_SUCCESS,
-} from "../actions/getDetailAction";
+} from "../variables";
 
 const initialState = {
 	loading: false,

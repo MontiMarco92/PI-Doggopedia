@@ -75,6 +75,7 @@ export const CreateLink = styled(Link)`
 	border-top: 1px solid var(--white);
 	border-bottom: 1px solid var(--white);
 	letter-spacing: 1px;
+	text-transform: uppercase;
 	padding: 5px;
 	width: 12%;
 	transition: all 0.25s;

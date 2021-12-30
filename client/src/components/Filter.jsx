@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { filterByExistence, filterByTemp, sortBy } from '../redux/actions/getDogsAction';
+import { filterBy } from '../redux/actions/getDogsAction';
 import { FilterWrapper, FilterDiv, Title, SubTitle, Select, Label, ResetButton } from './styles/Filter.styled';
 
 const Filter = () => {
@@ -15,19 +15,10 @@ const Filter = () => {
         sort: 'A-Z'
     });
     
-    
-    useEffect(()=>{
-        dispatch(filterByTemp(filter));
-    },[filter.temp])
 
-    useEffect(()=>{
-        dispatch(filterByExistence(filter));
-    },[filter.breedsToShow])
-    
-    useEffect(()=>{
-        dispatch(sortBy(filter));
-    },[filter.sort])
-   
+     useEffect(()=>{
+         dispatch(filterBy(filter))
+     }, [filter.temp, filter.breedsToShow, filter.sort])
    
 
     const tempChangeHandler =(e)=>{
@@ -37,14 +28,9 @@ const Filter = () => {
    
     const radioChangeHandler =(e)=>{
         
-        if(e.target.value === 'all') {
-            setFilter({
-                temp: 'all',
-                breedsToShow: e.target.value
-        })}
-        else{setFilter({
+        setFilter({
             ...filter, breedsToShow: e.target.value
-        })}
+        })
         
     }
     
@@ -64,7 +50,6 @@ const Filter = () => {
     
 
    
-
     const showDataTempMenu = () =>{
         if(loading){
             return <span>Loading...</span>
@@ -77,7 +62,6 @@ const Filter = () => {
             )
         }else if(errorMsg !== ''){return <span>{errorMsg}</span>}
     }
-
 
 
     return (
@@ -116,6 +100,6 @@ const Filter = () => {
             </FilterDiv>
         </FilterWrapper>
     )
-}
+};
 
 export default Filter

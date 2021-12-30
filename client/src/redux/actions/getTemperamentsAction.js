@@ -1,10 +1,11 @@
 import axios from "axios";
 
-export const GET_TEMPERAMENTS_LOADING = "GET_TEMPERAMENTS_LOADING";
-export const GET_TEMPERAMENTS_SUCCESS = "GET_TEMPERAMENTS_SUCCESS";
-export const GET_TEMPERAMENTS_ERROR = "GET_TEMPERAMENTS_ERROR";
-
-const baseUrl = process.env.REACT_APP_BASE_URL;
+import {
+	GET_TEMPERAMENTS_LOADING,
+	GET_TEMPERAMENTS_SUCCESS,
+	GET_TEMPERAMENTS_ERROR,
+} from "../variables";
+import { baseUrl } from "../variables";
 
 export function getTemperaments() {
 	return async (dispatch) => {
