@@ -64,7 +64,6 @@ const getDogsReducer = (state = initialState, action) => {
 					? x.sort((a, b) => (a.name > b.name ? -1 : 1))
 					: sort === "wt-+"
 					? x.sort((a, b) => {
-							console.log(x);
 							let avgA =
 								a.weight.length > 2
 									? a.weight

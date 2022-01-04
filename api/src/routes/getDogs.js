@@ -15,7 +15,6 @@ async function apiRequest() {
 
 router.get("/", async (req, res) => {
 	const { name } = req.query;
-	console.log("entra al get");
 	try {
 		//api call to retrieve all dogs
 		const apiResponse = await apiRequest();

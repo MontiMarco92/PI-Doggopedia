@@ -2,8 +2,6 @@ const router = require("express").Router();
 const { Dog } = require("../db");
 
 router.delete("/:breedId", async (req, res) => {
-	console.log(req.params);
-
 	const { breedId } = req.params;
 
 	try {

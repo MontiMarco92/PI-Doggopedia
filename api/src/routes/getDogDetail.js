@@ -3,9 +3,7 @@ const { Dog, Temperament } = require("../db.js");
 const { apiRequest } = require("./getDogs");
 
 router.get("/:breedId", async (req, res) => {
-	console.log(req.params);
 	const { breedId } = req.params;
-	console.log(breedId, typeof breedId);
 	try {
 		//if breedId is a number then comes from API, else comes from DB as id is saved as UUID.
 		if (Number(breedId) <= 1000) {
@@ -20,9 +18,8 @@ router.get("/:breedId", async (req, res) => {
 				temperament: aux.temperament,
 				height: aux.height.metric,
 				weight: aux.weight.metric,
-				lifeSpan: aux.life_span,
+				lifeSpan: aux.life_span.replace(" years", ""), // remove the 'years' so it does not repeat afterwards in the front
 			};
-
 			res.send(result);
 		} else {
 			// find the element that matches de provided id through params in database

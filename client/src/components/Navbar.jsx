@@ -39,16 +39,16 @@ export function Navbar() {
 	return (
 		<>
 			<Nav>
-				<NavTitle to="/home" onClick={backToMain}>
-					<NavIcon />
+				<NavTitle to="/home" onClick={backToMain} data-testid="title">
+					{/* <NavIcon  /> React-icon*/}
 					Doggopedia
 				</NavTitle>
-				<NavForm id='searchBar' onSubmit={onSearch}>
-					<NavInput type = 'search' name='searchDog' id='searchDog' value={searchStr.str} onChange={(e)=>{setSearchStr({...searchStr, str: e.target.value})}} required/>
+				<NavForm id='searchBar' data-testid='form' onSubmit={onSearch}>
+					<NavInput  type = 'search' name='searchDog' id='searchDog' placeholder="Enter dog..." value={searchStr.str} onChange={(e)=>{setSearchStr({...searchStr, str: e.target.value})}} required/>
 					<NavButton type = 'submit' >Search</NavButton>
 				</NavForm>
 				
-				{createLink ? <CreateLink to="createBreed">Create Breed</CreateLink> : null}
+				{createLink ? <CreateLink to="createBreed" data-testid='link'>Create Breed</CreateLink> : null}
 			</Nav>
 			<Outlet context={[searchStr, setSearchStr]}/>
 		</>

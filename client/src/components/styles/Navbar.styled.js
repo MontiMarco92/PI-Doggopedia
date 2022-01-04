@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IoPaw } from "react-icons/io5";
+// import { IoPaw } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 export const Nav = styled.nav`
@@ -21,9 +21,9 @@ export const NavTitle = styled(Link)`
 	align-items: center;
 `;
 
-export const NavIcon = styled(IoPaw)`
-	margin-right: 0.5rem;
-`;
+// export const NavIcon = styled(IoPaw)`
+// 	margin-right: 0.5rem;
+// `;
 
 export const NavForm = styled.form`
 	display: flex;
