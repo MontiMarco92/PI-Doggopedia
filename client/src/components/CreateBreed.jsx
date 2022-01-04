@@ -11,6 +11,7 @@ export function CreateBreed (){
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {temperaments} = useSelector(state => state.getTemperaments)
+    //local state to control all the input fields of the form
     const [inputs, setInputs] = useState({
         name: '',
         img: '',
@@ -19,16 +20,20 @@ export function CreateBreed (){
         lifeSpan: '',
         temperamentName: []
     })
+    //local state to save the validation errors from the user imputs
     const [errors, setErrors] = useState('')
-
+    //local state to determine if alert component should be shown or not
     const [showAlert, setShowAlert] = useState('');
 
+    //effect to dispatch get temperaments if the store array is currently empty
     useEffect(()=>{
         if(temperaments.length === 0){
             dispatch(getTemperaments())
         } 
     }, [])
 
+
+    //validate function to check all the user imputs
     const validate = (inputs) => {
         let errors = {};
 
@@ -60,6 +65,7 @@ export function CreateBreed (){
         return errors;
    }
 
+   // imput change handler to set the imputs state based on user interaction
     const onChangeHandler = (e) =>{
         if(e.target.name === 'temperamentsId'){
             setInputs({
@@ -72,14 +78,14 @@ export function CreateBreed (){
                 [e.target.name] : e.target.value,
             })
         }
-
+        //set errors state based on what the validation function returns
         setErrors(validate({
             ...inputs,
             [e.target.name] : e.target.value
         }))
     }
 
-
+    //function to remove a selected temperament from the state
     const removeTemperament = (e)=>{
         setInputs({
             ...inputs,
@@ -87,6 +93,7 @@ export function CreateBreed (){
         })
     }
 
+    //form submit handler
     const onSubmitHandler = async (e)=>{
         e.preventDefault()
         if(errors && Object.keys(errors).length > 0){
@@ -107,8 +114,7 @@ export function CreateBreed (){
                 navigate('/home'); 
 
             } catch(err){setShowAlert('postError')}
-        }
-        
+        }  
     }
 
 

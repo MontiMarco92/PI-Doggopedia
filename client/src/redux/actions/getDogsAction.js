@@ -5,6 +5,7 @@ import {
 	GET_DOGS_SUCCESS,
 	GET_DOGS_ERROR,
 	FILTER_BY,
+	RESET_FILTER,
 } from "../variables";
 import { baseUrl } from "../variables";
 
@@ -26,5 +27,11 @@ export function filterBy(filter) {
 	return {
 		type: FILTER_BY,
 		payload: filter,
+	};
+}
+
+export function resetFil() {
+	return {
+		type: RESET_FILTER,
 	};
 }

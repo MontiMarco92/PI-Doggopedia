@@ -12,13 +12,14 @@ const dog = {
 	lifeSpan: "7 - 15",
 };
 
-xdescribe("dog routes", () => {
+describe("dog routes", () => {
 	before(() =>
 		conn.authenticate().catch((err) => {
 			console.error("Unable to connect to the database:", err);
 		})
 	);
 	beforeEach(() => Dog.sync({ force: true }).then(() => Dog.create(dog)));
+	afterEach(() => Dog.sync({ force: true }));
 	describe("GET /dogs", () => {
 		it("should get 200", async () => {
 			let response = await agent.get("/dogs");

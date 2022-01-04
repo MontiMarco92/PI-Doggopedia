@@ -21,14 +21,6 @@ describe("Navbar component", () => {
 		return render(ui, { wrapper: BrowserRouter });
 	};
 
-	// const navbar = render(
-	// 	<MemoryRouter initialEntries={["/home"]}>
-	// 		<Routes>
-	// 			<Route path="/home" element={<Navbar />} />
-	// 		</Routes>
-	// 	</MemoryRouter>
-	// );
-
 	test("renders correctly", () => {
 		const navbar = renderWithRouter(<Navbar />, { route: "/home" });
 		expect(navbar).toBeTruthy();

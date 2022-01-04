@@ -6,13 +6,17 @@ import { Alert } from './Alert';
 import { DetailWrapper, Card, ImgContent, Img, Content, LoadingMsg, ErrorMsg, DeleteBtn, MainContent } from "./styles/DetailCard.styled";
 
 export function DetailCard (){
+    //hook to get the params values from pathname URL
     const params = useParams();
+
     const dispatch = useDispatch();
     const state = useSelector((state)=> state.getDogDetail)
     const {id, img, name, temperament, weight, height, lifeSpan} = state.dogDetail;
 
+    //local state to determine if alert should be shown or not
     const [showAlert, setShowAlert] = useState(false)
     
+    //effect to dispatch getdog detail action with the current param values
     useEffect(()=>{
         dispatch(getDogDetail(params.breedId))
     }, []);
@@ -38,7 +42,8 @@ export function DetailCard (){
                             <h4>Lifespan: <span>{lifeSpan} years</span></h4> 
                         </Content>
                     </MainContent>
-                
+
+                    {/* if the dog shown was created by the user a delete option btn is shown with its respective alert */}
                     <div>
                     {typeof(id) === 'string' ? <DeleteBtn onClick={()=> setShowAlert(true)}>Remove</DeleteBtn> : null}
                     </div>

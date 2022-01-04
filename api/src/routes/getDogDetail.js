@@ -22,7 +22,7 @@ router.get("/:breedId", async (req, res) => {
 			};
 			res.send(result);
 		} else {
-			// find the element that matches de provided id through params in database
+			// find the element that matches de provided id through params in database and bring temperament details through intermediate table
 			const dbResponse = await Dog.findByPk(breedId, {
 				attributes: { exclude: ["createdAt", "updatedAt"] },
 				include: [
@@ -39,7 +39,7 @@ router.get("/:breedId", async (req, res) => {
 				id: dbResponse.id,
 				img: dbResponse.img,
 				name: dbResponse.name,
-				temperament: dbResponse.temperaments.flatMap((i) => i.name).join(", "),
+				temperament: dbResponse.temperaments.flatMap((i) => i.name).join(", "), //flattening or 'de-nesting' array
 				height: dbResponse.height,
 				weight: dbResponse.weight,
 				lifeSpan: dbResponse.lifeSpan,

@@ -6,16 +6,20 @@ import { AlertBox, AlertWrapper, ErrorMsg } from "./styles/Alert.styled";
 import { baseUrl } from "../redux/variables";
 
 export const Alert = (props) =>{
+    //setshow state function and type of alert passed through props
     const {setShow, type} = props;
+    //hoow to get params values from URL
     const params = useParams();
     const navigate = useNavigate();
+    //local state for delete error
     const [deleteError, setdeleteError] = useState('');
 
+    //conditional rendering of alert component depending on type of alert that is needed
     const showData = () =>{
+        
         if(type === 'errorAlert'){
             return (<AlertBox>
-            {/* <h2>Submit Error</h2>
-            <p>The form cannot be submitted unless it has valid information</p> */}
+            
             {props.children}
     
             <button onClick={() => {setShow(false)}}>Close</button>
@@ -34,7 +38,7 @@ export const Alert = (props) =>{
             )
         }
     }
-   
+    //delete function to remove selected dog from DB
     const deleteHandler = async ()=>{
         try{
             await axios.delete(`${baseUrl}/delete/${params.breedId}`)

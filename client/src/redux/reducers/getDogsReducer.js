@@ -3,6 +3,7 @@ import {
 	GET_DOGS_LOADING,
 	GET_DOGS_SUCCESS,
 	FILTER_BY,
+	RESET_FILTER,
 } from "../variables";
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
 	dogs: [],
 	errorMsg: "",
 	filteredDogs: [],
+	resetFil: false,
 };
 
 const getDogsReducer = (state = initialState, action) => {
@@ -36,6 +38,7 @@ const getDogsReducer = (state = initialState, action) => {
 				errorMsg: "Unable to find dogs",
 			};
 		case FILTER_BY:
+			// three fns to filter by temp, by existence and sorting depending on parameters received in payload
 			const { temp, breedsToShow, sort } = action.payload;
 			const filterTemp = (temp) => {
 				return temp !== "all"
@@ -96,13 +99,22 @@ const getDogsReducer = (state = initialState, action) => {
 							return avgB - avgA;
 					  });
 			};
+			//filter temp is executed based on payload temperament and dogs array previously fetched
 			const tempFiltered = filterTemp(temp);
+			//filter existence is executed based on payload option and result from temp filter
 			const existFiltered = filterExistence(breedsToShow, tempFiltered);
+			//sort is executed based on payload option and result from existence filter
 			const sorted = sortBy(sort, existFiltered);
 
 			return {
 				...state,
 				filteredDogs: [...sorted],
+				errorMsg: sorted.length > 0 ? "" : "There are no dogs in the Data Base",
+			};
+		case RESET_FILTER:
+			return {
+				...state,
+				resetFil: !state.resetFil,
 			};
 
 		default:

@@ -9,6 +9,7 @@ describe("Dog model", () => {
 	);
 	describe("Validators", () => {
 		beforeEach(() => Dog.sync({ force: true }));
+		afterEach(() => Dog.sync({ force: true }));
 		describe("name", () => {
 			it("should throw an error if dog is null", () => {
 				let error = null;

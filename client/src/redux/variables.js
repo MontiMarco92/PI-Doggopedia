@@ -11,6 +11,8 @@ export const GET_TEMPERAMENTS_LOADING = "GET_TEMPERAMENTS_LOADING";
 export const GET_TEMPERAMENTS_SUCCESS = "GET_TEMPERAMENTS_SUCCESS";
 export const GET_TEMPERAMENTS_ERROR = "GET_TEMPERAMENTS_ERROR";
 
+export const RESET_FILTER = "RESET_FILTER";
+
 export const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export const dogsPerPage = 8;

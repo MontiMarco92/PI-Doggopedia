@@ -2,8 +2,10 @@ const router = require("express").Router();
 const { Dog } = require("../db");
 
 router.delete("/:breedId", async (req, res) => {
+	//get dogId through params
 	const { breedId } = req.params;
 
+	//delete selected dog from DB
 	try {
 		dbResponse = await Dog.destroy({
 			where: { id: breedId },

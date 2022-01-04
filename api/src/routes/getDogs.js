@@ -68,14 +68,10 @@ router.get("/", async (req, res) => {
 			const queryResult = result.filter((e) =>
 				e.name.toLowerCase().includes(name.toLowerCase())
 			);
-			res.send(queryResult);
-			//programar respuesta en caso de no encontrar perros con el query, desde el front
+			queryResult.length > 0 ? res.send(queryResult) : res.throw(Error);
 		} else {
 			res.send(result);
 		}
-
-		// solucionar situacion en que cuando no existe algo diferente a name en query string devuelva error, y si no hay nada por query devolver
-		// listado completo de perros
 	} catch (err) {
 		res.sendStatus(400);
 	}

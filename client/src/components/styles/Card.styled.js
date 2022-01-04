@@ -35,6 +35,8 @@ export const Card = styled.div`
 export const CardLink = styled(Link)`
 	text-decoration: none;
 	width: 100%;
+	display: flex;
+	flex-direction: column;
 `;
 
 export const ImgContent = styled.div`
@@ -52,24 +54,32 @@ export const Img = styled.img`
 
 export const Content = styled.div`
 	text-align: center;
+	flex: 1;
 	padding: 15px;
 	color: var(--text);
+	display: flex;
+	flex-direction: column;
 
 	h2 {
+		flex: 1;
 		margin: 10px 0;
 		letter-spacing: 1.5px;
 	}
+	div {
+		flex: 1;
 
-	h5 {
-		font-size: 1.1rem;
-		padding: 10px 0;
-	}
-	p {
-		font-size: 1rem;
-		letter-spacing: 1.5px;
+		h5 {
+			font-size: 1.1rem;
+			padding: 10px 0;
+		}
+		p {
+			font-size: 1rem;
+			letter-spacing: 1.5px;
+		}
 	}
 
 	h4 {
+		flex: 1;
 		margin-top: 20px;
 		font-size: 1.1rem;
 	}

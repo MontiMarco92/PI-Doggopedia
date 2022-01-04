@@ -3,6 +3,7 @@ import { Card, CardLink, Content, Img, ImgContent } from "./styles/Card.styled";
 
 export function Cards ({currentDogs}) {
     
+    //Card component that shows all the current page dogs received through props from Home component
     const renderList = currentDogs.map(e =>{
         const {id, img, name, temperament, weight} = e;
         return (

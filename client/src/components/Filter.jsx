@@ -7,39 +7,46 @@ import { FilterWrapper, FilterDiv, Title, SubTitle, Select, Label, ResetButton }
 
 const Filter = () => {
     const dispatch = useDispatch();
+    // hook to bring data from redux store
     const stateTemp = useSelector(state => state.getTemperaments);
     const {temperaments, loading, errorMsg} = stateTemp;
+    const {resetFil} = useSelector(state => state.getDogs);
+    //local state to set filter and sorting options
     const [filter, setFilter] = useState({
         temp: 'all',
         breedsToShow: 'all',
         sort: 'A-Z'
     });
     
+    //effect to call reset filter handler depending on redux store state (it's called when web title is clicked)
+    useEffect(()=>{
+        resetFilter();
+    }, [resetFil])
 
+    //effect to dispatch filter action when local state is modified
      useEffect(()=>{
          dispatch(filterBy(filter))
      }, [filter.temp, filter.breedsToShow, filter.sort])
    
-
+    // temperament change handler to set the local state temperament based on user select
     const tempChangeHandler =(e)=>{
-        setFilter({...filter, temp: e.target.value})
-        
+        setFilter({...filter, temp: e.target.value}) 
     }
-   
-    const radioChangeHandler =(e)=>{
-        
+    
+    // radio btn handler to set the local state to which dogs should be shown
+    const radioChangeHandler =(e)=>{  
         setFilter({
             ...filter, breedsToShow: e.target.value
         })
-        
     }
-    
+    // sort change handler to set the local state to re order the shown dogs based on user select
     const sortChangeHandler =(e)=>{
         setFilter({
             ...filter, sort: e.target.value
         })
     }
     
+    //reset filter function to reset local state to default values
     const resetFilter =()=>{
         setFilter({
             temp: 'all',
@@ -48,8 +55,7 @@ const Filter = () => {
         });
     }
     
-
-   
+    // show data function for temperaments dropdown menu for conditional rendering depending store state
     const showDataTempMenu = () =>{
         if(loading){
             return <span>Loading...</span>
