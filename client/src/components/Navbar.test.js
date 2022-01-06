@@ -2,46 +2,49 @@ import React from "react";
 import { Navbar } from "./Navbar.jsx";
 import { Home } from "./Home";
 import { CreateBreed } from "./CreateBreed.jsx";
-import {
-	fireEvent,
-	render,
-	screen,
-	waitForElementToBeRemoved,
-} from "@testing-library/react";
-import { MemoryRouter, BrowserRouter, Routes, Route } from "react-router-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { MemoryRouter, Routes, Route } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { Provider } from "react-redux";
 import store from "../redux/store.js";
 
 describe("Navbar component", () => {
-	//helper function to render with router in every test
-	const renderWithRouter = (ui, { route = "/" } = {}) => {
-		window.history.pushState({}, route);
-
-		return render(ui, { wrapper: BrowserRouter });
+	const renderFn = () => {
+		return render(
+			<MemoryRouter initialEntries={["/home"]}>
+				<Provider store={store}>
+					<Routes>
+						<Route path="/home" element={<Navbar />}>
+							<Route index element={<Home />} />
+							<Route path="createBreed" element={<CreateBreed />} />
+						</Route>
+					</Routes>
+				</Provider>
+			</MemoryRouter>
+		);
 	};
 
 	test("renders correctly", () => {
-		const navbar = renderWithRouter(<Navbar />, { route: "/home" });
+		const navbar = renderFn();
 		expect(navbar).toBeTruthy();
 	});
 
 	test("has a title and logo with correct text", () => {
-		const navbar = renderWithRouter(<Navbar />, { route: "/home" });
+		const navbar = renderFn();
 		expect(
 			navbar.getByRole("link", { name: /doggopedia/i })
 		).toBeInTheDocument();
-		expect(navbar.getByTestId("svgimg")).toBeInTheDocument();
+		// expect(navbar.getByTestId("svgimg")).toBeInTheDocument(); // test presence of reactIcon
 	});
 
 	test("has an input field and a button to submit the search", () => {
-		const navbar = renderWithRouter(<Navbar />, { route: "/home" });
+		const navbar = renderFn();
 		expect(navbar.getByPlaceholderText(/enter dog.../i)).toBeInTheDocument();
 		expect(navbar.getByRole("button", { name: /search/i })).toBeInTheDocument();
 	});
 	test("has an input field that set it's value to what is typed into it", () => {
-		const navbar = renderWithRouter(<Navbar />, { route: "/home" });
-		const input = navbar.getByPlaceholderText(/search.../i);
+		const navbar = renderFn();
+		const input = navbar.getByPlaceholderText(/enter dog.../i);
 		fireEvent.change(input, { target: { value: "el coco" } });
 		expect(input.value).toBe("el coco");
 		fireEvent.change(input, { target: { value: "coonhound" } });
@@ -68,5 +71,8 @@ describe("Navbar component", () => {
 		expect(
 			screen.queryByText(/create your own breed/i)
 		).not.toBeInTheDocument();
+		expect(
+			screen.queryByRole("link", { name: /create breed/i })
+		).toBeInTheDocument();
 	});
 });

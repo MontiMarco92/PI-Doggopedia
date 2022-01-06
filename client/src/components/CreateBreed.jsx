@@ -100,22 +100,36 @@ export function CreateBreed (){
             return setShowAlert('errorSubmit')}
         
         else{
-            try{
-                await axios.post(`${baseUrl}/dog`, inputs);
+            // try{
+            //     await axios.post(`${baseUrl}/dog`, inputs);
                 
-                setInputs({
-                    name: '',
-                    img: '',
-                    height: '',
-                    weight: '',
-                    lifeSpan: '',
-                    temperamentName: []
+            //     setInputs({
+            //         name: '',
+            //         img: '',
+            //         height: '',
+            //         weight: '',
+            //         lifeSpan: '',
+            //         temperamentName: []
+            //     })
+            //     navigate('/home'); 
+            // .then-catch syntax for handling promises
+            axios.post(`${baseUrl}/dog`, inputs)
+                .then(()=>{
+                    setInputs({
+                                name: '',
+                                img: '',
+                                height: '',
+                                weight: '',
+                                lifeSpan: '',
+                                temperamentName: []
+                            })
                 })
-                navigate('/home'); 
-
-            } catch(err){setShowAlert('postError')}
+                .then(()=>{
+                    navigate('/home');
+                })
+                .catch(err =>{setShowAlert('postError')})
         }  
-    }
+    }   
 
 
     return(

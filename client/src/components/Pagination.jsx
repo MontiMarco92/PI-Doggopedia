@@ -24,14 +24,15 @@ export const Pagination = ({changePage, totalPages, currentPage}) => {
             ? null
             : <PaginationWrapper>
                 <List>
+                    <Item><Button value='<<' onClick={(e) => changePage(e.target.value)}>{'<<'}</Button></Item>
                     <Item><Button value='<' onClick={(e) => changePage(e.target.value)}>{'<'}</Button></Item>
-                    <Item><Button value='start' onClick={(e) => changePage(e.target.value)}>{'Start'}</Button></Item>
-                    
-                    {arr.map(e =>{
-                        return <Item key={e}><Button onClick={() => changePage(e)}>{e}</Button></Item>
+                    {arr.map(elem =>{
+                        // add and remove custom classname based on current page number to add styling to current button
+                        let clickedClass = currentPage === elem ? 'clicked' : null
+                        return <Item key={elem}><Button className={clickedClass} onClick={() => changePage(elem)}>{elem}</Button></Item>
                     })}
-                    <Item><Button value='end' onClick={(e) => changePage(e.target.value)}>{'End'}</Button></Item>
                     <Item><Button value='>' onClick={(e) => changePage(e.target.value)}>{'>'}</Button></Item>
+                    <Item><Button value='>>' onClick={(e) => changePage(e.target.value)}>{'>>'}</Button></Item>
                 </List>
             </PaginationWrapper>
     }

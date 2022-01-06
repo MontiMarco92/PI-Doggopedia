@@ -33,14 +33,13 @@ export const Button = styled.button`
 	border-bottom: 2px solid transparent;
 	outline: none;
 	background: var(--scrollbar-track);
-	transition: all 0.3s ease;
 
 	&:hover {
 		border-bottom: 2px solid var(--text);
 		color: var(--text);
 	}
 
-	&:focus {
+	&.clicked {
 		border-bottom: 2px solid var(--text);
 		color: var(--text);
 	}

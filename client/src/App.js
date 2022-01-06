@@ -4,7 +4,7 @@ import { Navbar } from "./components/Navbar.jsx";
 import { Home } from "./components/Home.jsx";
 import store from "./redux/store";
 import { Provider } from "react-redux";
-import { DetailCard } from "./components/DetailCard";
+import DetailCard from "./components/DetailCard";
 import { CreateBreed } from "./components/CreateBreed";
 
 import GlobalStyles from "./components/styles/Global.js";

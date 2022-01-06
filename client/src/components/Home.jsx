@@ -32,11 +32,17 @@ export function Home() {
 			...searchStr,
 			str: ''
 		});
+		setCurrentPage(1);
 		if(stateTemp.temperaments.length === 0){
 			dispatch(getTemperaments());
 		}
 		
 	}, [searchStr.searchClick]);
+
+	//reset to page 1 every time dogs state changes
+	useEffect(()=>{
+		setCurrentPage(1);
+	}, [stateDogs])
 	
 	//calculate index of last and first dog shown per page
 	const indexLastDog = currentPage * dogsPerPage;
@@ -47,8 +53,8 @@ export function Home() {
 	//change page handler that sets current page number depending on button selected in pagination component
 	const changePage = (pageNumber) =>{
 		if(pageNumber === '<') {return currentPage > 1 ? setCurrentPage(currentPage-1) : null}
-		else if(pageNumber === 'start') {setCurrentPage(1)}
-		else if(pageNumber === 'end') {setCurrentPage(totalPages)}
+		else if(pageNumber === '<<') {setCurrentPage(1)}
+		else if(pageNumber === '>>') {setCurrentPage(totalPages)}
 		else if(pageNumber === '>'){return currentPage < totalPages ? setCurrentPage(currentPage+1) : null}
 		else {setCurrentPage(pageNumber)}
 	}

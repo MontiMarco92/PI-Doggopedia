@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getDogDetail } from '../redux/actions/getDetailAction';
 import { Alert } from './Alert';
 import { DetailWrapper, Card, ImgContent, Img, Content, LoadingMsg, ErrorMsg, DeleteBtn, MainContent } from "./styles/DetailCard.styled";
 
-export function DetailCard (){
+function DetailCard ({state, getDogDetail}){
     //hook to get the params values from pathname URL
     const params = useParams();
-
-    const dispatch = useDispatch();
-    const state = useSelector((state)=> state.getDogDetail)
+    
+    // using hooks (no need to use props):
+    // const dispatch = useDispatch();
+    // const state = useSelector((state)=> state.getDogDetail)
     const {id, img, name, temperament, weight, height, lifeSpan} = state.dogDetail;
+    
 
     //local state to determine if alert should be shown or not
     const [showAlert, setShowAlert] = useState(false)
     
     //effect to dispatch getdog detail action with the current param values
     useEffect(()=>{
-        dispatch(getDogDetail(params.breedId))
+        //using hook
+        // dispatch(getDogDetail(params.breedId))
+        
+        //using mapDispatchToProps
+        getDogDetail(params.breedId);
     }, []);
 
     const showData = () =>{
@@ -55,6 +61,9 @@ export function DetailCard (){
 			return <ErrorMsg>{state.errorMsg}</ErrorMsg>
 		}
 	}
+
+    
+
     return (
         <DetailWrapper>
             {showData()}
@@ -63,3 +72,18 @@ export function DetailCard (){
         
     
 }
+
+//using mapStateToProps and mapDispatchToProps as an alternative to hooks. These functions allow us to brin the store state and to dispatch actions
+//passing both as props to de component
+const mapStateToProps = (state) =>{
+    return {
+        state: state.getDogDetail
+    }
+}
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        getDogDetail: (x) => {dispatch(getDogDetail(x))}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailCard);
