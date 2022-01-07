@@ -45,6 +45,11 @@ export const NavInput = styled.input`
 	font-size: 1rem;
 `;
 
+export const ErrorMsg = styled.span`
+	color: var(--filter);
+	font-size: 0.8rem;
+`;
+
 export const NavButton = styled.button`
 	background-color: var(--text);
 	color: var(--white);

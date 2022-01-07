@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, NavTitle, NavIcon, NavForm, NavInput, NavButton, CreateLink } from './styles/Navbar.styled';
+import { Nav, NavTitle, NavIcon, NavForm, NavInput, NavButton, CreateLink, ErrorMsg } from './styles/Navbar.styled';
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -16,6 +16,8 @@ export function Navbar() {
 		str: '',
 		searchClick: false
 	});
+	//state to set errors on controlled search input
+	const [error, setError] = useState('')
 	//hook to 'see' the current pathname
 	const location = useLocation();
 	//hook to redirect to another pathname
@@ -31,11 +33,22 @@ export function Navbar() {
 	//search submit handler/ it changes searchStr state to tell Home component to do the search
 	const onSearch = (e) =>{
 		e.preventDefault();
-		setSearchStr({
-			...searchStr,
-			searchClick: !searchStr.searchClick
-		});
-		navigate('/home'); //redirects to home page
+		if(!error){
+			setSearchStr({
+				...searchStr,
+				searchClick: !searchStr.searchClick
+			});
+			navigate('/home'); //redirects to home page
+		}
+	}
+
+	const onChangeHandler = (e) =>{
+		let error = '';
+		if(!/^(?![\s.]+$)[a-zA-Z\s]*$/gm.test(e.target.value)){
+			error = 'Search is invalid. Only letters are valid'
+		}
+		setError(error)
+		setSearchStr({...searchStr, str: e.target.value})
 	}
 
 	//when clicked on web title all the states are reset to default and filter options are also reset through action dispatch
@@ -56,7 +69,10 @@ export function Navbar() {
 					Doggopedia
 				</NavTitle>
 				<NavForm id='searchBar' data-testid='form' onSubmit={onSearch}>
-					<NavInput  type = 'search' name='searchDog' id='searchDog' placeholder="Enter dog..." value={searchStr.str} onChange={(e)=>{setSearchStr({...searchStr, str: e.target.value})}} required/>
+					<div>
+						<NavInput  type = 'search' name='searchDog' id='searchDog' placeholder="Enter dog..." value={searchStr.str} onChange={onChangeHandler} required/>
+						{error ? <ErrorMsg>{error}</ErrorMsg> : null}
+					</div>
 					<NavButton type = 'submit' >Search</NavButton>
 				</NavForm>
 				
