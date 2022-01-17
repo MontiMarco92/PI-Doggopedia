@@ -40,17 +40,17 @@ npm start
 ## Previews
 
 <p align='left'>
-  <img src='https://github.com/<pmto<arcp92/>PI-Doggopedia/Images/landingPage.png' width='50%'>
+  <img src='https://github.com/MontiMarco92/PI-Doggopedia/Images/landingPage.png' width='50%'>
 </p>
 <p align='left'>
-  <img src='https://github.com/<pmto<arcp92/>PI-Doggopedia/Images/Home.png' width='50%'>
+  <img src='https://github.com/MontiMarcop92/PI-Doggopedia/Images/Home.png' width='50%'>
 </p>
 <p align='left'>
-  <img src='https://github.com/<pmto<arcp92/>PI-Doggopedia/Images/Home2.png' width='50%'>
+  <img src='https://github.com/MontiMarcop92/PI-Doggopedia/Images/Home2.png' width='50%'>
 </p>
 <p align='left'>
-  <img src='https://github.com/<pmto<arcp92/>PI-Doggopedia/Images/DetailCard.png' width='50%'>
+  <img src='https://github.com/MontiMarcop92/PI-Doggopedia/Images/DetailCard.png' width='50%'>
 </p>
 <p align='left'>
-  <img src='https://github.com/<pmto<arcp92/>PI-Doggopedia/Images/Form.png' width='50%'>
+  <img src='https://github.com/MontiMarcop92/PI-Doggopedia/Images/Form.png' width='50%'>
 </p>
