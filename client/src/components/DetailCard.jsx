@@ -12,7 +12,7 @@ function DetailCard ({state, getDogDetail}){
     // using hooks (no need to use props):
     // const dispatch = useDispatch();
     // const state = useSelector((state)=> state.getDogDetail)
-    const {id, img, name, temperament, weight, height, lifeSpan} = state.dogDetail;
+    const {id, img, name, temperament, weight, height, lifeSpan, bredFor} = state.dogDetail;
     
 
     //local state to determine if alert should be shown or not
@@ -45,6 +45,7 @@ function DetailCard ({state, getDogDetail}){
                             </div>
                             <h4>Weight: <span>{weight} Kg</span></h4>
                             <h4>Height: <span>{height} cm</span></h4>
+                            <h4>Bred For: <span>{bredFor} </span></h4>
                             <h4>Lifespan: <span>{lifeSpan} years</span></h4> 
                         </Content>
                     </MainContent>

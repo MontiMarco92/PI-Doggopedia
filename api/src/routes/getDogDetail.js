@@ -9,6 +9,7 @@ router.get("/:breedId", async (req, res) => {
 		if (Number(breedId) <= 1000) {
 			//request data from API
 			const apiResponse = await apiRequest();
+			console.log(apiResponse);
 			// find the element that matches de provided id through params in api response
 			const aux = apiResponse.find((e) => e.id === Number(breedId));
 			const result = {
@@ -18,6 +19,7 @@ router.get("/:breedId", async (req, res) => {
 				temperament: aux.temperament,
 				height: aux.height.metric,
 				weight: aux.weight.metric,
+				bredFor: aux.bred_for,
 				lifeSpan: aux.life_span.replace(" years", ""), // remove the 'years' so it does not repeat afterwards in the front
 			};
 			res.send(result);

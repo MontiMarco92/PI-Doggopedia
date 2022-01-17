@@ -65,7 +65,7 @@ export function Navbar() {
 		<>
 			<Nav>
 				<NavTitle to="/home" onClick={backToMain} data-testid="title">
-					{/* <NavIcon  /> React-icon*/}
+					<NavIcon  />
 					Doggopedia
 				</NavTitle>
 				<NavForm id='searchBar' data-testid='form' onSubmit={onSearch}>
